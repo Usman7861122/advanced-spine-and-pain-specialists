@@ -1,10 +1,20 @@
 ---
 import Testimonials from '@components/react/Testimonials';
 import SectionHeading from '@components/ui/SectionHeading.astro';
+import { DotPattern } from '@/components/ui/dot-pattern';
 import { testimonials, images, site } from '@data/site';
 ---
 
-<section id="testimonials" class="section-y">
+<section id="testimonials" class="section-y relative isolate overflow-hidden">
+  <!-- Brand-blue dot grid, fading out toward the edges. Rendered as static HTML (no JS needed). -->
+  <DotPattern
+    width={22}
+    height={22}
+    cx={1.5}
+    cy={1.5}
+    cr={1.5}
+    className="-z-10 fill-gold/35! [mask-image:radial-gradient(ellipse_70%_65%_at_50%_50%,white,transparent)]"
+  />
   <div class="container-x">
     <SectionHeading eyebrow="Patient stories" title="In their words." lede={`Rated ${site.rating.score} out of 5 from ${site.rating.count} patient reviews.`} />
     <div class="mt-14">
