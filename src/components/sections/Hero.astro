@@ -1,7 +1,8 @@
 ---
 /**
  * Home hero (same layout as the Bhalla template).
- * Desktop (xl+): full-width photo, text sits directly over the empty left side.
+ * Desktop (xl+): full-screen photo, text sits directly over the empty left side.
+ * Tablets: photo on top, text below, together filling the screen. Phones: natural height.
  * Smaller screens: photo on top, text below on navy.
  * The photo is dark, so the text is white over a soft navy gradient.
  */
@@ -9,17 +10,21 @@ import HeroCopy from '@components/sections/HeroCopy.astro';
 import { site, images } from '@data/site';
 ---
 
-<section id="hero" data-dark class="relative isolate bg-ink text-white">
-  <div class="relative w-full overflow-hidden pt-20 xl:pt-0">
-    <img
-      src={images.hero}
-      alt={`${site.doctor} and Amanda Worsham, FNP-C, of ${site.name}`}
-      width="1983"
-      height="793"
-      fetchpriority="high"
-      decoding="async"
-      class="hero-photo block aspect-[4/3] w-full object-cover object-[85%_center] sm:aspect-[16/8] sm:object-[80%_center] lg:aspect-auto xl:h-[max(40rem,46vw)] xl:object-[right_center]"
-    />
+<section id="hero" data-dark class="relative isolate flex flex-col bg-ink text-white sm:min-h-[100svh] xl:min-h-[max(100svh,40rem)]">
+  <div class="relative w-full overflow-hidden pt-20 xl:absolute xl:inset-0 xl:pt-0">
+    <picture>
+      <!-- Desktop: taller version of the photo (backdrop extended upward) so it fills the whole screen -->
+      <source media="(min-width: 1280px)" srcset={images.heroTall} width="1983" height="1240" />
+      <img
+        src={images.hero}
+        alt={`${site.doctor} and Amanda Worsham, FNP-C, of ${site.name}`}
+        width="1983"
+        height="793"
+        fetchpriority="high"
+        decoding="async"
+        class="hero-photo block aspect-[4/3] w-full object-cover object-[85%_center] sm:aspect-[16/8] sm:object-[80%_center] lg:aspect-auto xl:h-full xl:object-[right_bottom]"
+      />
+    </picture>
     <!-- Navy gradient on the left so the text stays readable -->
     <div
       aria-hidden="true"
@@ -30,19 +35,19 @@ import { site, images } from '@data/site';
     <!-- Dark top edge so the header reads on any screen -->
     <div aria-hidden="true" class="absolute inset-x-0 top-0 hidden h-32 bg-gradient-to-b from-ink/60 to-transparent xl:block"></div>
     <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink to-transparent"></div>
+  </div>
 
-    <!-- Desktop: text directly over the photo -->
-    <div class="pointer-events-none absolute inset-0 hidden xl:block">
-      <div class="container-x flex h-full items-center pt-20">
-        <div class="hero-in pointer-events-auto max-w-[30rem] pt-4">
-          <HeroCopy />
-        </div>
+  <!-- Desktop: text directly over the photo -->
+  <div class="relative hidden flex-1 xl:flex">
+    <div class="container-x flex items-center pb-12 pt-28">
+      <div class="hero-in max-w-[30rem]">
+        <HeroCopy />
       </div>
     </div>
   </div>
 
-  <!-- Mobile and tablet: text below the photo -->
-  <div class="container-x hero-in pb-16 pt-8 xl:hidden">
+  <!-- Mobile and tablet: text below the photo (fills the rest of the screen on tablets) -->
+  <div class="container-x hero-in flex flex-1 flex-col justify-center pb-16 pt-8 xl:hidden">
     <HeroCopy />
   </div>
 </section>
