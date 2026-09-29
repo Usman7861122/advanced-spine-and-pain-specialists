@@ -97,7 +97,7 @@ const quickLinks = nav.filter((n) => !n.mega);
       <p class="eyebrow text-white/40">Visit</p>
       <address class="mt-5 not-italic text-[0.95rem] leading-relaxed text-white/70">
         {locations.map((l) => (
-          <a href={l.mapsUrl} target="_blank" rel="noopener" class="footer-link mb-4 block">
+          <a href={`/locations/${l.slug}`} class="footer-link mb-4 block">
             <span class="block text-white">{l.name}</span>
             {l.line1}<br />{l.line2}
           </a>

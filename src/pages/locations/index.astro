@@ -1,0 +1,19 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import Locations from '@components/sections/Locations.astro';
+import CtaBand from '@components/sections/CtaBand.astro';
+import { images } from '@data/site';
+---
+
+<PageLayout
+  title="Locations"
+  eyebrow="Locations"
+  lede="Two offices north and east of Houston: Spring, open weekdays, and Liberty, open Tuesdays."
+  description="Advanced Spine and Pain Specialists offices in Spring, TX and Liberty, TX: addresses, hours and providers."
+  image={images.headshotWide}
+  imageAlt=""
+  position="60% 30%"
+>
+  <Locations />
+  <CtaBand />
+</PageLayout>

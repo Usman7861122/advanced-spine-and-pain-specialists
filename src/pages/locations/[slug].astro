@@ -1,0 +1,229 @@
+---
+/**
+ * One page per office: /locations/spring and /locations/liberty.
+ * Shows visit details, hours, map, the providers who see patients there,
+ * and the treatments and conditions offered at that office.
+ */
+import PageLayout from '@layouts/PageLayout.astro';
+import Container from '@components/ui/Container.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import ServicesGrid from '@components/sections/ServicesGrid.astro';
+import TestimonialsSection from '@components/sections/TestimonialsSection.astro';
+import { locations, team, services, conditionGroups, site, images } from '@data/site';
+
+export function getStaticPaths() {
+  return locations.map((l) => ({ params: { slug: l.slug }, props: { loc: l } }));
+}
+
+const { loc } = Astro.props;
+const providers = loc.providers.map((s) => team.find((p) => p.slug === s)).filter((p): p is (typeof team)[number] => Boolean(p));
+const treatmentSlugs = loc.treatments ?? services.map((s) => s.slug);
+const groups = conditionGroups
+  .map((g) => ({ ...g, items: loc.conditions ? g.items.filter((c) => loc.conditions!.includes(c.slug)) : g.items }))
+  .filter((g) => g.items.length > 0);
+const others = locations.filter((l) => l.slug !== loc.slug);
+const openDays = loc.hours.filter((h) => h.hours !== 'Closed').length;
+---
+
+<PageLayout
+  title={`Pain Management in ${loc.name}, TX`}
+  eyebrow="Locations"
+  lede={loc.blurb}
+  description={`Advanced Spine and Pain Specialists in ${loc.name}, TX: ${loc.line1}, ${loc.line2}. ${loc.hoursSummary}. Call ${site.phone}.`}
+  image={images.headshotWide}
+  imageAlt=""
+  position="60% 30%"
+>
+  <!-- Visit: details, hours and map -->
+  <section id="visit" class="section-y">
+    <Container class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-5">
+        <p class="eyebrow gold-rule text-gold">Visit us</p>
+        <h2 class="display mt-5 text-display-md text-ink">{loc.name}, Texas office</h2>
+        <p class="mt-4 leading-relaxed">Serving {loc.area}.</p>
+
+        <ul class="mt-8 divide-y divide-line border-y border-line">
+          <li class="flex items-start gap-4 py-5">
+            <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line text-gold"><Icon name="pin" class="h-4.5 w-4.5" /></span>
+            <div>
+              <p class="eyebrow text-mist">Address</p>
+              <a href={loc.mapsUrl} target="_blank" rel="noopener" class="mt-1 block text-ink transition-colors hover:text-gold">{loc.line1}<br />{loc.line2}</a>
+            </div>
+          </li>
+          <li class="flex items-start gap-4 py-5">
+            <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line text-gold"><Icon name="phone" class="h-4.5 w-4.5" /></span>
+            <div>
+              <p class="eyebrow text-mist">Phone</p>
+              <a href={site.phoneHref} class="mt-1 block text-ink transition-colors hover:text-gold">{site.phone}</a>
+            </div>
+          </li>
+          <li class="flex items-start gap-4 py-5">
+            <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line text-gold"><Icon name="mail" class="h-4.5 w-4.5" /></span>
+            <div>
+              <p class="eyebrow text-mist">Email</p>
+              <a href={`mailto:${site.email}`} class="mt-1 block text-ink transition-colors hover:text-gold">{site.email}</a>
+            </div>
+          </li>
+        </ul>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/contact">Request an appointment</Button>
+          <Button href={loc.mapsUrl} variant="outline">Get directions</Button>
+        </div>
+      </div>
+
+      <div class="grid gap-6 lg:col-span-7">
+        <!-- Hours -->
+        <div class="border border-line bg-white p-7 md:p-9">
+          <div class="flex items-baseline justify-between gap-4">
+            <p class="eyebrow text-gold">Opening hours</p>
+            <p class="text-[0.8rem] text-mist">{openDays === 1 ? 'Open 1 day a week' : `Open ${openDays} days a week`}</p>
+          </div>
+          <ul class="hours mt-5">
+            {loc.hours.map((h) => (
+              <li data-day={h.day} class:list={['flex items-center justify-between gap-4 border-b border-line py-3 last:border-0', h.hours === 'Closed' && 'text-mist']}>
+                <span class="day-name">{h.day}</span>
+                <span class:list={['tabular-nums', h.hours !== 'Closed' && 'text-ink']}>{h.hours}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <!-- Map -->
+        <div class="relative aspect-[16/10] overflow-hidden rounded-sm bg-bone">
+          <iframe
+            title={`Map to ${loc.line1}, ${loc.line2}`}
+            src={loc.embed}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            class="absolute inset-0 h-full w-full border-0 grayscale-[35%] contrast-[1.05]"
+          ></iframe>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Providers at this office -->
+  <section id="providers" class="section-y bg-bone/60">
+    <Container>
+      <div class="max-w-3xl">
+        <p class="eyebrow gold-rule text-gold">Providers</p>
+        <h2 class="display mt-5 text-display-lg text-ink">Who you’ll see in {loc.name}.</h2>
+      </div>
+      <ul class:list={['mt-14 grid gap-6 lg:gap-8', providers.length > 1 ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2']}>
+        {providers.map((p) => (
+          <li>
+            <article class="card-line group flex h-full flex-col overflow-hidden border border-line bg-porcelain transition-colors duration-500 hover:bg-white sm:flex-row md:flex-col">
+              <div class="img-zoom aspect-[4/5] overflow-hidden bg-ink sm:w-2/5 md:w-auto">
+                <img src={p.photo} alt={p.name} loading="lazy" decoding="async" class="h-full w-full object-cover object-top" />
+              </div>
+              <div class="flex flex-1 flex-col p-7">
+                <h3 class="display text-[1.6rem] leading-tight text-ink">{p.name}</h3>
+                <p class="eyebrow mt-3 leading-relaxed text-gold">{p.role}</p>
+                <p class="mt-4 line-clamp-4 text-[0.95rem] leading-relaxed">{p.bio}</p>
+                <div class="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-6 text-sm font-medium">
+                  <a href={`/about#${p.slug}`} class="inline-flex items-center gap-2 text-ink transition-colors hover:text-gold">
+                    Full profile <Icon name="arrow" class="h-4 w-4" />
+                  </a>
+                  <a href="/contact" class="inline-flex items-center gap-2 text-ink transition-colors hover:text-gold">
+                    Book with {p.firstName} <Icon name="arrow" class="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </section>
+
+  <!-- Treatments -->
+  <ServicesGrid
+    eyebrow={`Treatments in ${loc.name}`}
+    title={`How we treat pain at our ${loc.name} office.`}
+    lede="Featured treatments below. Ask us about any treatment on our full list."
+    only={treatmentSlugs}
+  />
+  <div class="bg-bone/60 pb-20 md:pb-28">
+    <Container>
+      <Button href="/services#all-treatments" variant="outline">See all treatments</Button>
+    </Container>
+  </div>
+
+  <!-- Conditions -->
+  <section id="conditions" data-dark class="section-y bg-ink text-white">
+    <Container>
+      <div class="max-w-3xl">
+        <p class="eyebrow gold-rule text-gold-light">Conditions</p>
+        <h2 class="display mt-5 text-display-lg">Conditions we treat in {loc.name}.</h2>
+      </div>
+      <div class="mt-14 grid gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+        {groups.map((g) => (
+          <div>
+            <p class="eyebrow text-gold-light">{g.title}</p>
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {g.items.map((c) => (
+                <li>
+                  <a
+                    href={`/conditions/${c.slug}`}
+                    class="inline-flex min-h-10 items-center rounded-full border border-white/20 px-4 py-2 text-[0.88rem] text-white/85 transition-colors hover:border-gold-light hover:text-white"
+                  >
+                    {c.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <TestimonialsSection />
+
+  <!-- Other office -->
+  <section class="border-t border-line bg-bone/60 py-16 md:py-20">
+    <Container class="grid gap-6 md:grid-cols-2 md:items-center">
+      <div>
+        <p class="eyebrow gold-rule text-gold">Our other office</p>
+        <p class="display mt-3 text-display-sm text-ink">Closer to {others.map((o) => o.name).join(' or ')}?</p>
+      </div>
+      <ul class="grid gap-4">
+        {others.map((o) => (
+          <li>
+            <a href={`/locations/${o.slug}`} class="card-line hover-lift group flex items-center justify-between gap-6 border border-line bg-white p-6">
+              <span>
+                <span class="display block text-[1.6rem] text-ink group-hover:text-gold transition-colors">{o.name}, TX</span>
+                <span class="mt-1 block text-[0.88rem] text-slate">{o.line1}, {o.line2}</span>
+                <span class="mt-1 block text-[0.8rem] text-mist">{o.hoursSummary}</span>
+              </span>
+              <Icon name="arrow" class="h-5 w-5 shrink-0 text-gold transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </section>
+</PageLayout>
+
+<style>
+  .hours li.is-today {
+    font-weight: 600;
+  }
+  .hours li.is-today .day-name::after {
+    content: ' · Today';
+    color: var(--color-gold);
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  // Highlight today's row in the hours table (Texas time).
+  function markToday() {
+    const day = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'America/Chicago' }).format(new Date());
+    document.querySelectorAll<HTMLElement>('.hours li').forEach((li) => li.classList.toggle('is-today', li.dataset.day === day));
+  }
+  markToday();
+  document.addEventListener('astro:page-load', markToday);
+</script>

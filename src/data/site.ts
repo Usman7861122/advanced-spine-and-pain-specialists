@@ -102,20 +102,56 @@ export const affiliations = [
   { name: 'Houston Methodist', logo: photo.houstonMethodist, url: 'https://www.houstonmethodist.org/' },
 ];
 
-export const locations = [
+const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const openDays = (open: string[]) => weekdays.map((day) => ({ day, hours: open.includes(day) ? '8:00 AM – 5:00 PM' : 'Closed' }));
+
+/**
+ * Offices. Each one gets its own page at /locations/<slug>.
+ * `providers` lists team slugs (see `team`); treatments and conditions default to the full list,
+ * add `treatments` / `conditions` (slugs) to a location to limit what its page shows.
+ */
+export const locations: {
+  slug: string;
+  name: string;
+  line1: string;
+  line2: string;
+  mapsUrl: string;
+  embed: string;
+  hoursSummary: string;
+  hours: { day: string; hours: string }[];
+  providers: string[];
+  blurb: string;
+  area: string;
+  treatments?: string[];
+  conditions?: string[];
+}[] = [
   {
+    slug: 'spring',
     name: 'Spring',
     line1: '25305 Interstate 45',
     line2: 'Spring, TX 77380',
     mapsUrl: 'https://maps.google.com/?q=25305+Interstate+45+Spring+TX+77380',
     embed: 'https://www.google.com/maps?q=25305+Interstate+45+Spring+TX+77380&output=embed',
+    hoursSummary: 'Mon – Fri, 8:00 AM – 5:00 PM',
+    hours: openDays(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
+    providers: ['khoury', 'jones'],
+    area: 'Spring, The Woodlands, Conroe and north Houston',
+    blurb:
+      'Our main office on Interstate 45 is open five days a week, with our full team of providers for consultations, image-guided procedures and follow-up care.',
   },
   {
+    slug: 'liberty',
     name: 'Liberty',
     line1: '2708 Jefferson Dr, Suite B',
     line2: 'Liberty, TX 77575',
     mapsUrl: 'https://maps.google.com/?q=2708+Jefferson+Dr+Suite+B+Liberty+TX+77575',
     embed: 'https://www.google.com/maps?q=2708+Jefferson+Dr+Suite+B+Liberty+TX+77575&output=embed',
+    hoursSummary: 'Tuesdays, 8:00 AM – 5:00 PM',
+    hours: openDays(['Tuesday']),
+    providers: ['khoury'],
+    area: 'Liberty, Dayton, Cleveland and east of Houston',
+    blurb:
+      'Our Liberty office brings Dr. Khoury’s care closer to home for patients east of Houston, with appointments every Tuesday.',
   },
 ];
 
@@ -129,6 +165,7 @@ export const site = {
     'Advanced Spine and Pain Specialists is an interventional pain management practice in Spring and Liberty, Texas, led by board-certified anesthesiologist and pain specialist Dr. Andrew M. Khoury.',
   phone: '281-868-7246',
   phoneHref: 'tel:+12818687246',
+  email: 'info@advspine.org',
   /** First location, used where only one address fits. */
   address: locations[0],
   rating: { score: '4.91', count: 437 },
@@ -828,11 +865,12 @@ export const posts = [
 ];
 
 /** Header navigation. `mega` names the mega menu an item opens. */
-export const nav: { label: string; href: string; mega?: 'services' | 'conditions' }[] = [
+export const nav: { label: string; href: string; mega?: 'services' | 'conditions' | 'locations' }[] = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Treatments', href: '/services', mega: 'services' },
   { label: 'Conditions', href: '/conditions', mega: 'conditions' },
+  { label: 'Locations', href: '/locations', mega: 'locations' },
   { label: 'Testimonials', href: '/#testimonials' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },

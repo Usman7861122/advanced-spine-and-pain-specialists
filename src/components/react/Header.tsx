@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { nav, services, conditionGroups, featuredConditions, site } from '@data/site';
+import { nav, services, conditionGroups, featuredConditions, site, locations } from '@data/site';
 import { cn } from '@lib/utils';
 
 type HeaderMode = 'transparent' | 'light' | 'solid';
@@ -8,7 +8,7 @@ interface Props {
   mode?: HeaderMode;
 }
 
-type MegaKey = 'services' | 'conditions';
+type MegaKey = 'services' | 'conditions' | 'locations';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -83,8 +83,9 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
           ? 'bg-transparent'
           : onLight
             ? 'bg-porcelain/60 backdrop-blur-md'
-            : mega
-            ? 'bg-porcelain border-b border-line'
+            : mega || mobileOpen
+            ? // No backdrop blur here: blur would trap the fixed mobile menu inside the 80px header.
+              'bg-porcelain border-b border-line'
             : 'bg-porcelain/92 backdrop-blur-md border-b border-line',
       )}
       onBlur={(e) => {
@@ -107,7 +108,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-5 xl:gap-7" aria-label="Main">
+        <nav className="hidden lg:flex items-center gap-4 2xl:gap-7" aria-label="Main">
           {nav.map((item) =>
             item.mega ? (
               <div
@@ -118,7 +119,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
               >
                 <button
                   type="button"
-                  className={cn('flex items-center gap-1.5 whitespace-nowrap text-[0.9rem] font-medium transition-colors', mutedColor)}
+                  className={cn('flex items-center gap-1.5 whitespace-nowrap text-[0.85rem] 2xl:text-[0.9rem] font-medium transition-colors', mutedColor)}
                   aria-expanded={mega === item.mega}
                   aria-haspopup="true"
                   onClick={() => setMega((v) => (v === item.mega ? null : item.mega!))}
@@ -140,7 +141,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
               <a
                 key={item.label}
                 href={item.href}
-                className={cn('link-underline whitespace-nowrap text-[0.9rem] font-medium transition-colors', mutedColor)}
+                className={cn('link-underline whitespace-nowrap text-[0.85rem] 2xl:text-[0.9rem] font-medium transition-colors', mutedColor)}
               >
                 {item.label}
               </a>
@@ -152,7 +153,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
         <div className="hidden xl:flex shrink-0 items-center gap-6">
           <a
             href={site.phoneHref}
-            className={cn('hidden 2xl:block whitespace-nowrap text-[0.9rem] font-medium transition-colors', mutedColor)}
+            className={cn('hidden min-[1680px]:block whitespace-nowrap text-[0.85rem] 2xl:text-[0.9rem] font-medium transition-colors', mutedColor)}
           >
             {site.phone}
           </a>
@@ -198,7 +199,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
             onMouseEnter={keepMega}
             onMouseLeave={scheduleClose}
           >
-            {mega === 'services' ? <ServicesMega /> : <ConditionsMega />}
+            {mega === 'services' ? <ServicesMega /> : mega === 'conditions' ? <ConditionsMega /> : <LocationsMega />}
           </motion.div>
         )}
       </AnimatePresence>
@@ -238,6 +239,23 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
                             </a>
                           </li>
                         ))}
+                      </ul>
+                    )}
+                    {mobileSub === item.mega && item.mega === 'locations' && (
+                      <ul className="pb-4 space-y-1">
+                        {locations.map((l) => (
+                          <li key={l.slug}>
+                            <a href={`/locations/${l.slug}`} className="block py-2.5">
+                              <span className="block text-[0.95rem] text-ink">{l.name}, TX</span>
+                              <span className="block text-[0.8rem] text-mist">{l.hoursSummary}</span>
+                            </a>
+                          </li>
+                        ))}
+                        <li>
+                          <a href="/locations" className="block py-2.5 text-[0.9rem] font-medium text-gold">
+                            All locations
+                          </a>
+                        </li>
                       </ul>
                     )}
                     {mobileSub === item.mega && item.mega === 'conditions' && (
@@ -396,6 +414,59 @@ function ConditionsMega() {
             ))}
           </motion.div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function LocationsMega() {
+  return (
+    <div className="container-x grid grid-cols-12 gap-10 py-10">
+      <MegaIntro
+        eyebrow="Locations"
+        title="Two offices north and east of Houston."
+        href="/locations"
+        linkLabel="View all locations"
+      />
+      <ul className="col-span-6 grid grid-cols-2 gap-6">
+        {locations.map((l, i) => (
+          <motion.li
+            key={l.slug}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease, delay: 0.05 + i * 0.06 }}
+          >
+            <a
+              href={`/locations/${l.slug}`}
+              className="group block h-full rounded-lg border border-line bg-white p-6 transition-colors hover:border-gold"
+            >
+              <span className="eyebrow text-gold">Office</span>
+              <span className="display mt-3 block text-[1.7rem] leading-tight text-ink group-hover:text-gold transition-colors">
+                {l.name}, TX
+              </span>
+              <span className="mt-3 block text-[0.88rem] leading-snug text-slate">
+                {l.line1}
+                <br />
+                {l.line2}
+              </span>
+              <span className="mt-3 block text-[0.82rem] text-mist">{l.hoursSummary}</span>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-ink group-hover:text-gold">
+                View office
+                <Arrow />
+              </span>
+            </a>
+          </motion.li>
+        ))}
+      </ul>
+      <div className="col-span-3 border-l border-line pl-10">
+        <p className="eyebrow text-gold">Book at either office</p>
+        <a href={site.phoneHref} className="display mt-4 block text-[1.6rem] text-ink hover:text-gold transition-colors">
+          {site.phone}
+        </a>
+        <a href="/contact" className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-gold">
+          Request an appointment
+          <Arrow />
+        </a>
       </div>
     </div>
   );
