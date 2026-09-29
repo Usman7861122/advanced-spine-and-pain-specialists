@@ -6,7 +6,10 @@ import Icon from '@components/ui/Icon.astro';
 import Reveal from '@components/react/Reveal';
 import ScrollTimeline from '@components/react/ScrollTimeline';
 import ServicesGrid from '@components/sections/ServicesGrid.astro';
-import { services, site, images } from '@data/site';
+import ServiceArea from '@components/ui/ServiceArea.astro';
+import NearYou from '@components/sections/NearYou.astro';
+import { services, site, images, locationsForService, placeNames } from '@data/site';
+import { medicalPageSchema } from '@lib/schema';
 
 export function getStaticPaths() {
   return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
@@ -16,16 +19,33 @@ const { service } = Astro.props;
 const c = service.content;
 const heroImage = c?.photos[0] ?? images.consultWindow;
 const others = services.filter((s) => s.slug !== service.slug);
+
+// Local SEO: which offices offer this treatment, as "Spring and Liberty, TX" / "Spring & Liberty, TX".
+const locs = locationsForService(service.slug);
+const places = placeNames(locs);
+const placesShort = placeNames(locs, '&');
+const metaDescription = `${service.description} Offered at Advanced Spine and Pain Specialists in ${places}. Call ${site.phone}.`;
+const schema = medicalPageSchema({
+  name: service.title,
+  description: metaDescription,
+  url: new URL(Astro.url.pathname, Astro.site ?? Astro.url).href,
+  kind: 'MedicalProcedure',
+  locations: locs,
+});
 ---
 
 <PageLayout
   title={service.title}
-  eyebrow="Treatments"
+  seoTitle={`${service.title} in ${placesShort} | Advanced Spine & Pain Specialists`}
+  description={metaDescription}
+  schema={schema}
+  eyebrow={`Treatments · ${placesShort}`}
   lede={c?.intro ?? service.description}
   image={heroImage}
   imageAlt=""
   position="center 35%"
 >
+  <ServiceArea slot="hero" locations={locs} />
   {c ? (
     <>
       <!-- 1. What is it: text + illustration -->
@@ -35,6 +55,10 @@ const others = services.filter((s) => s.slug !== service.slug);
             <p class="eyebrow gold-rule text-gold">Overview</p>
             <h2 class="display mt-5 text-display-md text-ink">{c.whatIs.title}</h2>
             {c.whatIs.text.map((t) => <p class="mt-6 text-lg leading-relaxed">{t}</p>)}
+            <p class="mt-6 text-lg leading-relaxed">
+              {service.title} is available at our offices in {places}, performed by board-certified specialists who
+              explain every step before you decide.
+            </p>
             <div class="mt-10 flex flex-wrap gap-3">
               <Button href="/contact">Request an appointment</Button>
               <Button href={site.phoneHref} variant="outline">{site.phone}</Button>
@@ -157,11 +181,16 @@ const others = services.filter((s) => s.slug !== service.slug);
   ) : (
     <section class="section-y">
       <Container class="max-w-3xl">
-        <p class="text-lg leading-relaxed">Detailed content for {service.title} is coming soon.</p>
+        <p class="text-lg leading-relaxed">
+          {service.title} is available at our offices in {places}. Call us to learn whether it is right for you.
+        </p>
         <div class="mt-10"><Button href="/contact">Request an appointment</Button></div>
       </Container>
     </section>
   )}
+
+  <!-- Local SEO: offices that offer this treatment -->
+  <NearYou topic={service.title} locations={locs} />
 
   <!-- Other services -->
   <ServicesGrid eyebrow="Other treatments" title="More ways we treat pain." lede="" exclude={service.slug} />

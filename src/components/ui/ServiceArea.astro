@@ -1,0 +1,33 @@
+---
+/**
+ * "Available in Spring, TX & Liberty, TX" line with links to each office page.
+ * Used under the title in the top banner of treatment and condition pages (local SEO).
+ */
+import Icon from '@components/ui/Icon.astro';
+
+interface Props {
+  locations: { slug: string; name: string }[];
+  label?: string;
+}
+const { locations, label = 'Available in' } = Astro.props;
+---
+
+{
+  locations.length > 0 && (
+    <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.95rem] text-white/80">
+      <Icon name="pin" class="h-4 w-4 text-gold-light" />
+      <span>{label}</span>
+      {locations.map((l, i) => (
+        <>
+          {i > 0 && <span class="text-white/40">&amp;</span>}
+          <a
+            href={`/locations/${l.slug}`}
+            class="rounded-full border border-white/25 px-3.5 py-1 text-white transition-colors hover:border-gold-light hover:text-gold-light"
+          >
+            {l.name}, TX
+          </a>
+        </>
+      ))}
+    </p>
+  )
+}

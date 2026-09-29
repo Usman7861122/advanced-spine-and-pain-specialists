@@ -13,12 +13,16 @@ interface Props {
   image?: string;
   imageAlt?: string;
   position?: string;
+  seoTitle?: string;
+  schema?: Record<string, unknown>;
 }
 
-const { title, eyebrow, lede, description, image, imageAlt, position } = Astro.props;
+const { title, eyebrow, lede, description, image, imageAlt, position, seoTitle, schema } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} transparentHeader>
-  <PageHero title={title} eyebrow={eyebrow} lede={lede} image={image} imageAlt={imageAlt} position={position} />
+<BaseLayout title={title} description={description} seoTitle={seoTitle} schema={schema} transparentHeader>
+  <PageHero title={title} eyebrow={eyebrow} lede={lede} image={image} imageAlt={imageAlt} position={position}>
+    <slot name="hero" />
+  </PageHero>
   <slot />
 </BaseLayout>

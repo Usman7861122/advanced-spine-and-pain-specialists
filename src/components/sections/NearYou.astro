@@ -1,0 +1,89 @@
+---
+/**
+ * "Get <treatment> near you in Spring & Liberty, TX" block with the offices that offer it.
+ * Used near the bottom of treatment and condition pages (local SEO + a clear next step).
+ */
+import Icon from '@components/ui/Icon.astro';
+import { team, site, placeNames, inSentence } from '@data/site';
+
+interface Props {
+  /** e.g. "Epidural steroid injections" or "Sciatica treatment" */
+  topic: string;
+  locations: {
+    slug: string;
+    name: string;
+    line1: string;
+    line2: string;
+    hoursSummary: string;
+    providers: string[];
+    area: string;
+  }[];
+}
+const { topic, locations } = Astro.props;
+const places = placeNames(locations);
+---
+
+{
+  locations.length > 0 && (
+    <section id="near-you" class="section-y border-t border-line">
+      <div class="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-5">
+          <p class="eyebrow gold-rule text-gold">Near you</p>
+          <h2 class="display mt-5 text-display-md text-ink">
+            {topic} in {places}
+          </h2>
+          <p class="mt-6 text-lg leading-relaxed">
+            Looking for {inSentence(topic)} near you? Our board-certified team sees patients at
+            {locations.length > 1 ? ' two offices' : ' our office'} in {places}, serving{' '}
+            {locations.map((l) => l.area).join(', and ')}.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href="/contact"
+              class="hover-lift inline-flex h-12 items-center rounded-full bg-ink px-7 text-[0.875rem] font-medium text-white transition-colors hover:bg-gold"
+            >
+              Request an appointment
+            </a>
+            <a
+              href={site.phoneHref}
+              class="hover-lift inline-flex h-12 items-center rounded-full border border-ink/25 px-7 text-[0.875rem] font-medium text-ink transition-colors hover:border-ink"
+            >
+              {site.phone}
+            </a>
+          </div>
+        </div>
+
+        <ul class:list={['grid gap-5 lg:col-span-7', locations.length > 1 && 'sm:grid-cols-2']}>
+          {locations.map((l) => {
+            const people = l.providers.map((s) => team.find((p) => p.slug === s)).filter(Boolean) as typeof team;
+            return (
+              <li>
+                <a href={`/locations/${l.slug}`} class="card-line hover-lift group flex h-full flex-col border border-line bg-white p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-gold-light">
+                    <Icon name="pin" class="h-4.5 w-4.5" />
+                  </span>
+                  <span class="display mt-6 block text-[1.7rem] leading-tight text-ink transition-colors group-hover:text-gold">
+                    {l.name}, Texas
+                  </span>
+                  <span class="mt-2 block text-[0.92rem] leading-relaxed text-slate">
+                    {l.line1}
+                    <br />
+                    {l.line2}
+                  </span>
+                  <span class="mt-2 block text-[0.85rem] text-mist">{l.hoursSummary}</span>
+                  <span class="mt-4 block text-[0.85rem] text-slate">
+                    With {people.map((p) => p.name.split(',')[0]).join(' & ')}
+                  </span>
+                  <span class="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-medium text-ink group-hover:text-gold">
+                    View {l.name} office
+                    <Icon name="arrow" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )
+}

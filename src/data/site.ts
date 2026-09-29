@@ -155,6 +155,23 @@ export const locations: {
   },
 ];
 
+/** Offices that offer a treatment (by service slug). */
+export const locationsForService = (slug: string) => locations.filter((l) => !l.treatments || l.treatments.includes(slug));
+
+/** Offices that treat a condition (by condition slug). */
+export const locationsForCondition = (slug: string) => locations.filter((l) => !l.conditions || l.conditions.includes(slug));
+
+/** Lower-case a title for use mid-sentence, but keep acronyms like CRPS or MILD® as they are. */
+export const inSentence = (t: string) =>
+  t
+    .split(' ')
+    .map((w) => (/^[A-Z][a-z]/.test(w) ? w.toLowerCase() : w))
+    .join(' ');
+
+/** "Spring and Liberty, TX" / "Spring, TX" (for sentences, titles and meta descriptions). */
+export const placeNames = (locs: { name: string }[], joiner = 'and') =>
+  locs.length === 0 ? 'Texas' : `${locs.map((l) => l.name).join(` ${joiner} `)}, TX`;
+
 export const site = {
   name: 'Advanced Spine and Pain Specialists',
   shortName: 'Advanced Spine & Pain',
