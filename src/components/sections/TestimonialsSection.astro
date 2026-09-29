@@ -1,0 +1,14 @@
+---
+import Testimonials from '@components/react/Testimonials';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import { testimonials, images, site } from '@data/site';
+---
+
+<section id="testimonials" class="section-y">
+  <div class="container-x">
+    <SectionHeading eyebrow="Patient stories" title="In their words." lede={`Rated ${site.rating.score} out of 5 from ${site.rating.count} patient reviews.`} />
+    <div class="mt-14">
+      <Testimonials client:visible items={testimonials} image={images.consultWindow} imageAlt="A provider talking with a patient" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,136 @@
+---
+import { site, services, nav, locations, affiliations } from '@data/site';
+const year = new Date().getFullYear();
+const quickLinks = nav.filter((n) => !n.mega);
+---
+
+<footer class="bg-ink text-white">
+  <!-- CTA band -->
+  <div class="container-x">
+    <div class="flex flex-col gap-8 border-b border-line-dark py-16 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="eyebrow text-gold-light">Ready when you are</p>
+        <p class="display mt-4 max-w-xl text-display-md">
+          Start with a conversation about your pain.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="/contact"
+          class="hover-lift inline-flex h-12 items-center rounded-full bg-white px-7 text-sm font-medium text-ink transition-colors hover:bg-gold-light"
+        >
+          Request an appointment
+        </a>
+        <a
+          href={site.phoneHref}
+          class="hover-lift inline-flex h-12 items-center rounded-full border border-white/25 px-7 text-sm font-medium text-white transition-colors hover:border-white"
+        >
+          {site.phone}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Columns -->
+  <div class="container-x grid gap-12 py-16 md:grid-cols-12">
+    <div class="md:col-span-4">
+      <a href="/" class="block leading-none">
+        <span class="display text-[1.7rem]">Advanced Spine &amp; Pain</span>
+        <span class="mt-1 block text-xs font-medium tracking-[0.3em] text-gold-light">SPECIALISTS</span>
+      </a>
+      <p class="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-white/60">
+        Interventional pain management in Spring and Liberty, Texas. Led by Dr. Andrew M. Khoury, board-certified in
+        anesthesiology and interventional pain management.
+      </p>
+      <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-white/50">
+        <span class="eyebrow">Affiliated with</span>
+        {affiliations.map((a) => (
+          <a href={a.url} target="_blank" rel="noopener" aria-label={`${a.name} (opens in a new tab)`}>
+            <img src={a.logo} alt={a.name} width="100" height="36" class="h-7 w-auto opacity-60 brightness-0 invert transition-opacity hover:opacity-100" />
+          </a>
+        ))}
+      </div>
+      <div class="mt-6 flex gap-3">
+        <a href={site.social.instagram} aria-label="Instagram" class="footer-social hover-lift">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            ><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle
+              cx="17.5"
+              cy="6.5"
+              r="1"
+              fill="currentColor"
+              stroke="none"
+            /></svg
+          >
+        </a>
+        <a href={site.social.facebook} aria-label="Facebook" class="footer-social hover-lift">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            ><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z" /></svg
+          >
+        </a>
+        <a href={site.social.linkedin} aria-label="LinkedIn" class="footer-social hover-lift">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            ><path d="M6 9v12M6 4v1M10 21v-7a3 3 0 0 1 6 0v7M10 9v12M16 9a5 5 0 0 1 4 5v7" /></svg
+          >
+        </a>
+      </div>
+    </div>
+
+    <div class="md:col-span-2">
+      <p class="eyebrow text-white/40">Navigate</p>
+      <ul class="mt-5 space-y-3">
+        {quickLinks.map((l) => (
+          <li><a href={l.href} class="footer-link link-underline">{l.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="md:col-span-3">
+      <p class="eyebrow text-white/40">Treatments</p>
+      <ul class="mt-5 space-y-3">
+        {services.map((s) => (
+          <li><a href={`/services/${s.slug}`} class="footer-link link-underline">{s.title}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="md:col-span-3">
+      <p class="eyebrow text-white/40">Visit</p>
+      <address class="mt-5 not-italic text-[0.95rem] leading-relaxed text-white/70">
+        {locations.map((l) => (
+          <a href={l.mapsUrl} target="_blank" rel="noopener" class="footer-link mb-4 block">
+            <span class="block text-white">{l.name}</span>
+            {l.line1}<br />{l.line2}
+          </a>
+        ))}
+        <a href={site.phoneHref} class="footer-link link-underline block">{site.phone}</a>
+      </address>
+      <p class="eyebrow mt-8 text-white/40">Patients</p>
+      <ul class="mt-4 space-y-2">
+        <li><a href={site.portalUrl} target="_blank" rel="noopener" class="footer-link link-underline">Patient portal</a></li>
+        {site.forms.map((f) => (
+          <li><a href={f.url} target="_blank" rel="noopener" class="footer-link link-underline">{f.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-line-dark">
+    <div class="container-x flex flex-col gap-3 py-6 text-[0.8rem] text-white/40 md:flex-row md:items-center md:justify-between">
+      <p>© {year} {site.name}. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="/privacy" class="hover:text-white transition-colors">Privacy policy</a>
+        <a href="/accessibility" class="hover:text-white transition-colors">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  @reference "../styles/global.css";
+  .footer-link {
+    @apply text-[0.95rem] text-white/70 transition-colors hover:text-white;
+  }
+  .footer-social {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-gold-light hover:text-gold-light;
+  }
+</style>

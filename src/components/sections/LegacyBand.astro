@@ -1,0 +1,19 @@
+---
+/** Awards band: pinned photo with the Best of the Best recognition and rating stats. */
+import ParallaxBand from '@components/sections/ParallaxBand.astro';
+import { images, site } from '@data/site';
+---
+
+<ParallaxBand
+  src={images.waitingRoom}
+  alt="A calm, modern clinic waiting room"
+  eyebrow="Voted by Houston"
+  title="Houston Chronicle’s Best of the Best, two years in a row."
+  text="Chronic pain affects 1 in 3 Americans, more than heart disease and cancer combined. We are honored that our patients trust us to help."
+  cta={{ label: 'Request an appointment', href: '/contact' }}
+  stats={[
+    { value: `${site.rating.score}/5`, label: `Average rating, ${site.rating.count} reviews` },
+    { value: '2x', label: 'Best of the Best, 2024 and 2025' },
+    { value: '2', label: 'Locations: Spring and Liberty, TX' },
+  ]}
+/>

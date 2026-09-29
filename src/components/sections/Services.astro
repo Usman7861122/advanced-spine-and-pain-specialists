@@ -1,0 +1,63 @@
+---
+import Reveal from '@components/react/Reveal';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import { services, images } from '@data/site';
+---
+
+<section id="services" data-dark class="section-y relative isolate overflow-hidden bg-ink text-white">
+  <div class="container-x">
+    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <SectionHeading
+        tone="light"
+        eyebrow="Treatments"
+        title="Minimally invasive care that targets the source."
+        lede="From a first visit through follow-up, every plan starts with the least invasive treatment likely to work for you."
+      />
+      <Button href="/services" variant="outline-light" class="shrink-0">All treatments</Button>
+    </div>
+
+    <div class="mt-16 grid gap-6 lg:grid-cols-12 lg:gap-8">
+      <div class="lg:col-span-4">
+        <figure class="img-zoom relative aspect-[4/3] overflow-hidden rounded-sm lg:sticky lg:top-24 lg:aspect-auto lg:h-[calc(100vh-7rem)] lg:max-h-[44rem]">
+          <img
+            src={images.consultSeated}
+            alt="A pain specialist in consultation with a patient"
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 h-full w-full object-cover object-[45%_center]"
+          />
+          <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent"></div>
+          <figcaption class="absolute inset-x-0 bottom-0 p-8">
+            <p class="eyebrow text-gold-light">Every plan starts here</p>
+            <p class="display mt-2 text-2xl leading-snug text-white">Your pain, explained in plain language.</p>
+          </figcaption>
+        </figure>
+      </div>
+
+    <ul class="grid gap-px overflow-hidden rounded-sm bg-line-dark sm:grid-cols-2 lg:col-span-8">
+      {services.map((s, i) => (
+        <Reveal client:visible as="li" delay={(i % 2) * 0.08} className="bg-ink">
+          <a
+            href={`/services/${s.slug}`}
+            class="spot card-line group flex h-full flex-col justify-between p-8 transition-colors duration-300 hover:bg-ink-soft md:p-10"
+          >
+            <div>
+              <span class="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-gold-light transition-all duration-500 group-hover:border-gold-light group-hover:bg-gold-light/10 group-hover:scale-110">
+                <Icon name="spine" class="h-5 w-5" />
+              </span>
+              <h3 class="display mt-8 text-[1.75rem] leading-tight text-white">{s.title}</h3>
+              <p class="mt-4 text-[0.95rem] leading-relaxed text-white/60">{s.short}</p>
+            </div>
+            <span class="mt-10 inline-flex items-center gap-2 text-sm font-medium text-gold-light">
+              Learn more
+              <Icon name="arrow" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
+          </a>
+        </Reveal>
+      ))}
+    </ul>
+    </div>
+  </div>
+</section>

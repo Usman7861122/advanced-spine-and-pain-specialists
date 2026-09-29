@@ -1,0 +1,31 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SpineRail from '@components/react/SpineRail';
+import Hero from '@components/sections/Hero.astro';
+import About from '@components/sections/About.astro';
+import Team from '@components/sections/Team.astro';
+import Services from '@components/sections/Services.astro';
+import Credentials from '@components/sections/Credentials.astro';
+import WhyChoose from '@components/sections/WhyChoose.astro';
+import LegacyBand from '@components/sections/LegacyBand.astro';
+import Gallery from '@components/sections/Gallery.astro';
+import TestimonialsSection from '@components/sections/TestimonialsSection.astro';
+import Blog from '@components/sections/Blog.astro';
+import Contact from '@components/sections/Contact.astro';
+import { homeSections } from '@data/site';
+---
+
+<BaseLayout lightHero>
+  <SpineRail client:idle sections={homeSections} />
+  <Hero />
+  <About />
+  <Team />
+  <Services />
+  <Credentials />
+  <WhyChoose />
+  <LegacyBand />
+  <Gallery />
+  <TestimonialsSection />
+  <Blog />
+  <Contact />
+</BaseLayout>

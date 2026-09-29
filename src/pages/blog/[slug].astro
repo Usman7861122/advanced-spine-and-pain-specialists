@@ -1,0 +1,23 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import Container from '@components/ui/Container.astro';
+import Blog from '@components/sections/Blog.astro';
+import CtaBand from '@components/sections/CtaBand.astro';
+import { posts } from '@data/site';
+
+export function getStaticPaths() {
+  return posts.map((p) => ({ params: { slug: p.slug }, props: { post: p } }));
+}
+
+const { post } = Astro.props;
+---
+
+<PageLayout title={post.title} eyebrow={post.category} lede={post.excerpt} image={post.image} imageAlt="">
+  <section class="section-y">
+    <Container class="max-w-3xl">
+      <p class="text-lg leading-relaxed">Article content coming soon.</p>
+    </Container>
+  </section>
+  <Blog />
+  <CtaBand eyebrow="Questions about your back?" title="Read less. Ask us." />
+</PageLayout>

@@ -1,0 +1,21 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import About from '@components/sections/About.astro';
+import Team from '@components/sections/Team.astro';
+import Credentials from '@components/sections/Credentials.astro';
+import LegacyBand from '@components/sections/LegacyBand.astro';
+import WhyChoose from '@components/sections/WhyChoose.astro';
+import TestimonialsSection from '@components/sections/TestimonialsSection.astro';
+import CtaBand from '@components/sections/CtaBand.astro';
+import { site, images } from '@data/site';
+---
+
+<PageLayout title="Meet the Team" eyebrow="About us" lede={site.description} image={images.headshotWide} imageAlt="Dr. Andrew Khoury and Amanda Worsham, FNP-C" position="60% 30%">
+  <About />
+  <Team full />
+  <Credentials />
+  <LegacyBand />
+  <WhyChoose />
+  <TestimonialsSection />
+  <CtaBand />
+</PageLayout>

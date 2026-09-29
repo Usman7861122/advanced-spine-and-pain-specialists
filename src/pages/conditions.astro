@@ -1,0 +1,125 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Container from '@components/ui/Container.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import PageHero from '@components/sections/PageHero.astro';
+import { conditionGroups, site, images } from '@data/site';
+
+const total = conditionGroups.reduce((n, g) => n + g.items.length, 0);
+---
+
+<BaseLayout
+  title="Conditions we treat"
+  description="Pain conditions treated at Advanced Spine and Pain Specialists in Spring and Liberty, TX."
+  transparentHeader
+>
+  <PageHero
+    title="Conditions we treat"
+    eyebrow="Conditions"
+    lede={`${total} pain conditions our team diagnoses and treats, grouped by where the pain comes from. Most are treated without surgery.`}
+    image={images.stenosis}
+    position="center"
+  />
+
+  <!-- Sticky anchor nav -->
+  <nav aria-label="Condition groups" class="sticky top-20 z-30 border-b border-line bg-porcelain/95 backdrop-blur-md">
+    <Container>
+      <ul class="no-scrollbar -mx-5 flex gap-1 overflow-x-auto px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12">
+        {conditionGroups.map((g) => (
+          <li class="shrink-0">
+            <a
+              href={`#${g.id}`}
+              class="anchor-link inline-flex h-14 items-center gap-2 whitespace-nowrap border-b-2 border-transparent px-4 text-[0.88rem] font-medium text-slate transition-colors hover:text-ink"
+              data-target={g.id}
+            >
+              {g.title}
+              <span class="rounded-full bg-bone px-2 py-0.5 text-[0.7rem] tabular-nums text-mist">{g.items.length}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </nav>
+
+  <!-- Groups -->
+  <div>
+    {conditionGroups.map((g, i) => {
+      const dark = i % 2 === 1;
+      return (
+      <section id={g.id} data-dark={dark ? '' : undefined} class:list={['scroll-mt-36 py-16 md:py-24', dark && 'bg-ink text-white']}>
+        <Container class="grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div class="lg:col-span-4">
+            <p class:list={['eyebrow gold-rule', dark ? 'text-gold-light' : 'text-gold']}>{g.items.length} {g.items.length === 1 ? 'entry' : 'entries'}</p>
+            <h2 class:list={['display mt-4 text-display-md', dark ? 'text-white' : 'text-ink']}>{g.title}</h2>
+            <p class:list={['mt-4 leading-relaxed', dark && 'text-white/70']}>{g.overview}</p>
+          </div>
+          <ul class:list={['divide-y border-y lg:col-span-8', dark ? 'divide-line-dark border-line-dark' : 'divide-line border-line']}>
+            {g.items.map((c) => (
+              <li>
+                <a
+                  href={`/conditions/${c.slug}`}
+                  class="group grid items-center gap-2 py-5 transition-[padding] duration-500 ease-[var(--ease-out-soft)] hover:pl-3 sm:grid-cols-[1fr_auto_auto] sm:gap-8"
+                >
+                  <span class:list={['display text-[1.4rem] leading-snug transition-colors', dark ? 'text-white group-hover:text-gold-light' : 'text-ink group-hover:text-gold']}>
+                    {c.title}
+                  </span>
+                  <span class:list={['text-[0.8rem] uppercase tracking-[0.14em]', dark ? 'text-white/50' : 'text-mist']}>{c.kind}</span>
+                  <span class:list={['hidden items-center gap-2 text-sm font-medium sm:inline-flex', dark ? 'text-white' : 'text-ink']}>
+                    View
+                    <Icon name="arrow" class="h-4 w-4 text-gold transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+      );
+    })}
+  </div>
+
+  <!-- CTA -->
+  <section class="border-t border-line bg-bone/60 py-16 md:py-20">
+    <Container class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="eyebrow gold-rule text-gold">Not sure what you have?</p>
+        <p class="display mt-3 max-w-xl text-display-sm text-ink">Describe the pain. We will help you name it.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <Button href="/contact">Request an appointment</Button>
+        <Button href={site.phoneHref} variant="outline">{site.phone}</Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<script>
+  // Highlight the anchor for the group currently in view.
+  function initAnchors() {
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.anchor-link'));
+  const sections = links
+    .map((l) => document.getElementById(l.dataset.target ?? ''))
+    .filter((el): el is HTMLElement => Boolean(el));
+
+  const setActive = (id: string) => {
+    links.forEach((l) => {
+      const on = l.dataset.target === id;
+      l.classList.toggle('border-gold', on);
+      l.classList.toggle('text-ink', on);
+      l.setAttribute('aria-current', on ? 'true' : 'false');
+    });
+  };
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible[0]) setActive(visible[0].target.id);
+    },
+    { rootMargin: '-40% 0px -50% 0px' },
+  );
+  sections.forEach((s) => io.observe(s));
+  }
+  initAnchors();
+  document.addEventListener('astro:page-load', initAnchors);
+</script>

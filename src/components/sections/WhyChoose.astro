@@ -1,0 +1,36 @@
+---
+import Reveal from '@components/react/Reveal';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import WhyChooseList from '@components/react/WhyChooseList';
+import { whyChoose, images } from '@data/site';
+
+---
+
+<section id="why" class="section-y">
+  <div class="container-x grid gap-14 lg:grid-cols-12 lg:gap-20">
+    <div class="lg:col-span-5">
+      <SectionHeading
+        eyebrow="Why choose us"
+        title="Less pain, more life. That is the goal."
+        lede="We find where your pain comes from, then treat it with the least invasive option that will work, so you can get back to work, family and the things you enjoy."
+      />
+      <Reveal client:visible delay={0.1} className="mt-10">
+        <div class="img-zoom aspect-[4/3] overflow-hidden rounded-sm bg-bone">
+          <img
+            src={images.handshake}
+            alt="A provider comforting a patient"
+            loading="lazy"
+            decoding="async"
+            width="900"
+            height="675"
+            class="h-full w-full object-cover"
+          />
+        </div>
+      </Reveal>
+    </div>
+
+    <div class="lg:col-span-7 lg:self-center">
+      <WhyChooseList client:visible items={whyChoose} />
+    </div>
+  </div>
+</section>

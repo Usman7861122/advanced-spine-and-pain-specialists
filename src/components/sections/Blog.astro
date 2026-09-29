@@ -1,0 +1,54 @@
+---
+import Reveal from '@components/react/Reveal';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import { posts } from '@data/site';
+
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+<section id="blog" data-dark class="section-y bg-ink text-white">
+  <div class="container-x">
+    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <SectionHeading
+        tone="light"
+        eyebrow="Our blog"
+        title="Plain answers about back and neck pain."
+      />
+      <Button href="/blog" variant="outline-light" class="shrink-0">All articles</Button>
+    </div>
+
+    <ul class="mt-16 grid gap-px bg-line-dark md:grid-cols-3">
+      {posts.map((p, i) => (
+        <Reveal client:visible as="li" delay={i * 0.08} className="bg-ink">
+          <a href={`/blog/${p.slug}`} class="spot card-line group flex h-full flex-col transition-colors hover:bg-ink-soft">
+            <div class="aspect-[16/10] overflow-hidden bg-ink-soft">
+              <img
+                src={p.image}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-8 md:p-9">
+            <p class="eyebrow text-gold-light">{p.category}</p>
+            <h3 class="display mt-5 text-[1.7rem] leading-tight text-white group-hover:text-gold-light transition-colors">
+              {p.title}
+            </h3>
+            <p class="mt-4 text-[0.95rem] leading-relaxed text-white/60">{p.excerpt}</p>
+            <div class="mt-auto flex items-center justify-between pt-8 text-[0.8rem] text-white/45">
+              <span>
+                <time datetime={p.date}>{fmt(p.date)}</time> · {p.readTime}
+              </span>
+              <Icon name="arrow" class="h-4 w-4 text-gold-light transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
+            </div>
+          </a>
+        </Reveal>
+      ))}
+    </ul>
+  </div>
+</section>

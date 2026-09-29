@@ -1,0 +1,13 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import Blog from '@components/sections/Blog.astro';
+import WhyChoose from '@components/sections/WhyChoose.astro';
+import CtaBand from '@components/sections/CtaBand.astro';
+import { images } from '@data/site';
+---
+
+<PageLayout title="Blog" eyebrow="Our blog" lede="Plain answers about back and neck pain." image={images.stenosis} imageAlt="" position="center">
+  <Blog />
+  <WhyChoose />
+  <CtaBand />
+</PageLayout>

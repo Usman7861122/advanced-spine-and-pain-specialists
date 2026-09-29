@@ -1,0 +1,39 @@
+---
+/** The care team: three provider cards with photo, role and short bio. */
+import Reveal from '@components/react/Reveal';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import { team } from '@data/site';
+
+interface Props {
+  /** Show the full bio (About page) or a clamped one (home page). */
+  full?: boolean;
+}
+const { full = false } = Astro.props;
+---
+
+<section id="team" class="section-y bg-bone/60">
+  <div class="container-x">
+    <SectionHeading
+      eyebrow="Our team"
+      title="Specialists who listen first."
+      lede="Physicians and a nurse practitioner working together on one plan for your pain."
+    />
+
+    <ul class="mt-16 grid gap-6 md:grid-cols-3 lg:gap-8">
+      {team.map((p, i) => (
+        <Reveal client:visible as="li" delay={i * 0.08} className="h-full">
+          <article class="card-line group flex h-full flex-col overflow-hidden border border-line bg-porcelain transition-colors duration-500 hover:bg-white">
+            <div class="img-zoom aspect-[4/5] overflow-hidden bg-ink">
+              <img src={p.photo} alt={p.name} loading="lazy" decoding="async" class="h-full w-full object-cover object-top" />
+            </div>
+            <div class="flex flex-1 flex-col p-7">
+              <h3 class="display text-[1.6rem] leading-tight text-ink">{p.name}</h3>
+              <p class="eyebrow mt-3 leading-relaxed text-gold">{p.role}</p>
+              <p class:list={['mt-4 text-[0.95rem] leading-relaxed', !full && 'line-clamp-4']}>{p.bio}</p>
+            </div>
+          </article>
+        </Reveal>
+      ))}
+    </ul>
+  </div>
+</section>

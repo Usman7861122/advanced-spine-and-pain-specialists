@@ -1,0 +1,102 @@
+---
+/**
+ * Full-width "window" parallax: the photo stays fixed while the page scrolls over it.
+ * Technique: a position:fixed image inside a section with clip-path:inset(0).
+ * Works on iOS Safari (unlike background-attachment: fixed).
+ */
+import Button from '@components/ui/Button.astro';
+import { affiliations } from '@data/site';
+
+interface Props {
+  src: string;
+  alt: string;
+  eyebrow: string;
+  title: string;
+  text?: string;
+  cta?: { label: string; href: string };
+  stats?: { value: string; label: string }[];
+  position?: string;
+}
+
+const { src, alt, eyebrow, title, text, cta, stats = [], position = 'center 40%' } = Astro.props;
+---
+
+<section id="legacy" data-dark class="band relative isolate min-h-[85vh] text-white">
+  <!-- Fixed photo, clipped to the section -->
+  <div class="band-bg" aria-hidden="true">
+    <img src={src} alt="" loading="lazy" decoding="async" style={`object-position:${position}`} />
+    <div class="band-veil"></div>
+  </div>
+  <span class="sr-only">{alt}</span>
+
+  <div class="container-x relative flex min-h-[85vh] flex-col justify-end py-20 md:py-28">
+    <div class="max-w-2xl">
+      <p class="eyebrow gold-rule text-gold-light">{eyebrow}</p>
+      <h2 class="display mt-5 text-display-lg">{title}</h2>
+      {text && <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/80">{text}</p>}
+      {cta && (
+        <div class="mt-9">
+          <Button href={cta.href} variant="light" size="lg">{cta.label}</Button>
+        </div>
+      )}
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-white/60">
+      <span class="eyebrow">In proud affiliation with</span>
+      {affiliations.map((a) => (
+        <a href={a.url} target="_blank" rel="noopener" aria-label={`${a.name} (opens in a new tab)`} class="group">
+          <img src={a.logo} alt={a.name} width="110" height="40" class="h-8 w-auto opacity-70 brightness-0 invert transition-opacity group-hover:opacity-100" />
+        </a>
+      ))}
+    </div>
+
+    {stats.length > 0 && (
+      <ul class="mt-14 grid gap-8 border-t border-white/20 pt-8 sm:grid-cols-3">
+        {stats.map((s) => (
+          <li class="pr-6">
+            <p class="display text-4xl text-gold-light md:text-5xl">{s.value}</p>
+            <p class="mt-2 text-[0.85rem] uppercase tracking-[0.18em] text-white/70">{s.label}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .band {
+    /* Clips the fixed image to this section's box. */
+    clip-path: inset(0);
+    background: var(--color-ink);
+  }
+  .band-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .band-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .band-veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(11, 29, 66, 0.35) 0%,
+      rgba(11, 29, 66, 0.45) 45%,
+      rgba(11, 29, 66, 0.8) 100%
+    );
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .band {
+      clip-path: none;
+      overflow: hidden;
+    }
+    .band-bg {
+      position: absolute;
+    }
+  }
+</style>

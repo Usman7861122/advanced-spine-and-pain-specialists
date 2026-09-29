@@ -1,0 +1,25 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  /** Optional supporting sentence. */
+  lede?: string;
+  /** "light" for dark sections. */
+  tone?: 'dark' | 'light';
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const { eyebrow, title, lede, tone = 'dark', align = 'left', class: className = '' } = Astro.props;
+const light = tone === 'light';
+---
+
+<div class:list={['max-w-3xl', align === 'center' && 'mx-auto text-center', className]}>
+  <p class:list={['eyebrow', align === 'left' && 'gold-rule', light ? 'text-gold-light' : 'text-gold']}>
+    {eyebrow}
+  </p>
+  <h2 class:list={['display mt-5 text-display-lg', light ? 'text-white' : 'text-ink']}>{title}</h2>
+  {lede && (
+    <p class:list={['mt-6 text-lg leading-relaxed', light ? 'text-white/65' : 'text-slate']}>{lede}</p>
+  )}
+</div>

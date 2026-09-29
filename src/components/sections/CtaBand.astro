@@ -1,0 +1,31 @@
+---
+/** Compact dark call-to-action band for inner pages. */
+import Container from '@components/ui/Container.astro';
+import Button from '@components/ui/Button.astro';
+import { site } from '@data/site';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+}
+const {
+  eyebrow = 'Living with pain?',
+  title = 'You don’t have to just live with it. Let us take a look.',
+  text = 'Bring your imaging and your questions. We will explain what is causing your pain and every option to treat it.',
+} = Astro.props;
+---
+
+<section data-dark class="section-y bg-ink text-white">
+  <Container class="grid gap-10 lg:grid-cols-12 lg:items-center">
+    <div class="lg:col-span-8">
+      <p class="eyebrow gold-rule text-gold-light">{eyebrow}</p>
+      <h2 class="display mt-5 text-display-md">{title}</h2>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-white/70">{text}</p>
+    </div>
+    <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
+      <Button href="/contact" variant="light" size="lg">Request an appointment</Button>
+      <Button href={site.phoneHref} variant="outline-light" size="lg">{site.phone}</Button>
+    </div>
+  </Container>
+</section>

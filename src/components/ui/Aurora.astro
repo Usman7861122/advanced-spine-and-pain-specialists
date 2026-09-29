@@ -1,0 +1,110 @@
+---
+/**
+ * Soft moving "aurora" light behind a section. Pure CSS, no JS.
+ * Waves enter from the right, travel left and dim as they go.
+ * Two layers run half a cycle apart, so a new wave is always arriving
+ * from the right as the previous one fades on the left. Seamless loop.
+ * (Built left-to-right, then mirrored with scaleX(-1) on the wrapper.)
+ */
+interface Props {
+  /** "light" for porcelain sections, "dark" for ink sections. */
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+const { tone = 'light', class: className = '' } = Astro.props;
+---
+
+<div aria-hidden="true" class:list={['aurora pointer-events-none absolute inset-0 -z-10', tone, className]}>
+  <div class="wave wave-a"></div>
+  <div class="wave wave-b"></div>
+</div>
+
+<style>
+  .aurora {
+    --a1: #8fb3f7; /* gold light */
+    --a2: #f5f8fc; /* porcelain */
+    --a3: #2f66d6; /* gold */
+    --a4: #c6d4ea; /* soft slate */
+    --a5: #e4ebf5; /* bone */
+    --base: #f5f8fc;
+    --strength: 1;
+    --stripe: repeating-linear-gradient(
+      100deg,
+      var(--base) 0%,
+      var(--base) 7%,
+      transparent 10%,
+      transparent 12%,
+      var(--base) 16%
+    );
+    --glow: repeating-linear-gradient(
+      100deg,
+      var(--a1) 10%,
+      var(--a3) 15%,
+      var(--a4) 20%,
+      var(--a1) 25%,
+      var(--a2) 30%
+    );
+    /* Bright on the left, dim toward the right, soft top and bottom edges. */
+    --fade: linear-gradient(90deg, black 0%, black 30%, rgba(0, 0, 0, 0.7) 55%, rgba(0, 0, 0, 0.25) 78%, transparent 100%);
+    --edge: linear-gradient(180deg, transparent 0%, black 18%, black 82%, transparent 100%);
+    mask-image: var(--fade), var(--edge);
+    -webkit-mask-image: var(--fade), var(--edge);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+    overflow: hidden;
+    transform: scaleX(-1); /* mirror: right to left */
+  }
+  .aurora.dark {
+    --base: #0b1d42;
+    --a2: #163472;
+    --a5: #22396b;
+    --strength: 0.6;
+  }
+
+  /* Each wave is a wide band that slides left to right, fading out as it goes. */
+  .wave {
+    position: absolute;
+    top: -10%;
+    bottom: -10%;
+    left: -60%;
+    width: 120%;
+    background-image: var(--stripe), var(--glow);
+    background-size: 300% 200%, 200% 100%;
+    background-position: 50% 50%, 50% 50%;
+    filter: blur(10px) saturate(1.3);
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: sweep 36s linear infinite;
+  }
+  .wave-b {
+    animation-delay: -18s; /* half a cycle behind: starts as wave A passes ~60% */
+  }
+
+  @keyframes sweep {
+    0% {
+      transform: translateX(0%);
+      opacity: 0;
+    }
+    8% {
+      opacity: var(--strength);
+    }
+    60% {
+      opacity: calc(var(--strength) * 0.55);
+    }
+    100% {
+      transform: translateX(140%);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave {
+      animation: none;
+      opacity: calc(var(--strength) * 0.6);
+      transform: translateX(40%);
+    }
+    .wave-b {
+      display: none;
+    }
+  }
+</style>

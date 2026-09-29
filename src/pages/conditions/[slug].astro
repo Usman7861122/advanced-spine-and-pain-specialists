@@ -1,0 +1,54 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import Container from '@components/ui/Container.astro';
+import Button from '@components/ui/Button.astro';
+import Services from '@components/sections/Services.astro';
+import CtaBand from '@components/sections/CtaBand.astro';
+import { conditionGroups, images, site } from '@data/site';
+
+export function getStaticPaths() {
+  return conditionGroups.flatMap((g) =>
+    g.items.map((c) => ({ params: { slug: c.slug }, props: { condition: c, group: g } })),
+  );
+}
+
+const { condition, group } = Astro.props;
+const related = group.items.filter((c) => c.slug !== condition.slug);
+---
+
+<PageLayout title={condition.title} eyebrow={group.title} lede={condition.summary} image={images.handshakeScreen} imageAlt="" position="70% 30%">
+  <section class="section-y">
+    <Container class="grid gap-12 lg:grid-cols-12 lg:gap-20">
+      <div class="lg:col-span-7">
+        <p class="eyebrow gold-rule text-gold">How we can help</p>
+        <p class="mt-6 text-lg leading-relaxed">{condition.summary}</p>
+        <p class="mt-5 leading-relaxed">
+          Every visit starts with listening, an exam and a review of your imaging. Then our team explains what is
+          causing your pain and walks you through every option, from simple steps to advanced, minimally invasive
+          procedures.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <Button href="/contact">Request an appointment</Button>
+          <Button href={site.phoneHref} variant="outline">{site.phone}</Button>
+        </div>
+      </div>
+      {related.length > 0 && (
+        <aside class="lg:col-span-5">
+          <p class="eyebrow text-mist">Related conditions</p>
+          <ul class="mt-4 divide-y divide-line border-y border-line">
+            {related.map((c) => (
+              <li>
+                <a href={`/conditions/${c.slug}`} class="group flex items-center justify-between gap-4 py-4">
+                  <span class="display text-[1.3rem] text-ink transition-colors group-hover:text-gold">{c.title}</span>
+                  <span class="text-[0.75rem] uppercase tracking-[0.14em] text-mist">{c.kind}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
+    </Container>
+  </section>
+  <Services />
+  <CtaBand />
+</PageLayout>

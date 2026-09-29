@@ -1,0 +1,11 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import Contact from '@components/sections/Contact.astro';
+import Blog from '@components/sections/Blog.astro';
+import { images } from '@data/site';
+---
+
+<PageLayout title="Contact" eyebrow="Get in touch" lede="Call 281-868-7246 or send a request and our team will call you back." image={images.waitingRoom} imageAlt="A calm clinic waiting room" position="center 45%">
+  <Contact />
+  <Blog />
+</PageLayout>

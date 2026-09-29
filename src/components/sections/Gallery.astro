@@ -1,0 +1,19 @@
+---
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import ExpandableGallery from '@components/react/ExpandableGallery';
+import { images } from '@data/site';
+---
+
+<section id="gallery" class="section-y bg-bone/60">
+  <div class="container-x">
+    <SectionHeading
+      eyebrow="Our gallery"
+      title="Care that feels personal."
+      lede="Our team in Spring and Liberty, Texas, where consultations, image-guided procedures and follow-ups happen."
+      align="center"
+    />
+    <div class="mt-16">
+      <ExpandableGallery client:visible images={images.gallery} />
+    </div>
+  </div>
+</section>

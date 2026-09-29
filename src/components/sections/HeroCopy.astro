@@ -1,0 +1,36 @@
+---
+/** Text block inside the home hero. */
+import Button from '@components/ui/Button.astro';
+import { site, affiliations } from '@data/site';
+
+const trained = ['UTHealth Houston', 'Baylor', 'UTMB', 'Univ. of Florida'];
+---
+
+<p class="eyebrow gold-rule text-gold">{site.role}</p>
+<h1 class="display mt-5 text-[clamp(2.6rem,4.6vw,4.4rem)] leading-[1.02] text-ink">
+  Treat pain at its <em class="font-light italic text-gold">source</em>. Get your life back.
+</h1>
+<p class="mt-6 max-w-lg text-[1.05rem] leading-relaxed text-slate">
+  Minimally invasive, board-certified pain care for the neck, back, joints and nerves, delivered with compassion in
+  Spring and Liberty, Texas.
+</p>
+<div class="mt-8 flex flex-wrap gap-3">
+  <Button href="/contact">Request an appointment</Button>
+  <Button href={site.phoneHref} variant="outline">Call {site.phone}</Button>
+</div>
+
+<div class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6">
+  <span class="eyebrow text-mist">Trained at</span>
+  {trained.map((t) => <span class="display text-xl text-ink">{t}</span>)}
+</div>
+
+<div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-mist">
+  <span class="eyebrow">In proud affiliation with</span>
+  {
+    affiliations.map((a) => (
+      <a href={a.url} target="_blank" rel="noopener" aria-label={`${a.name} (opens in a new tab)`} class="group">
+        <img src={a.logo} alt={a.name} width="110" height="40" class="h-8 w-auto opacity-75 mix-blend-multiply transition-opacity group-hover:opacity-100" />
+      </a>
+    ))
+  }
+</div>

@@ -1,0 +1,37 @@
+---
+/** Full list of treatments offered, grouped by type of pain. */
+import Reveal from '@components/react/Reveal';
+import Button from '@components/ui/Button.astro';
+import { treatmentGroups, site } from '@data/site';
+---
+
+<section id="all-treatments" data-dark class="section-y bg-ink text-white">
+  <div class="container-x">
+    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <div class="max-w-3xl">
+        <p class="eyebrow gold-rule text-gold-light">All treatments</p>
+        <h2 class="display mt-5 text-display-lg">Everything we offer, in one place.</h2>
+        <p class="mt-6 text-lg leading-relaxed text-white/70">
+          Not sure which treatment fits? That is our job. Call us and we will help you find the right next step.
+        </p>
+      </div>
+      <Button href={site.phoneHref} variant="outline-light" class="shrink-0">Call {site.phone}</Button>
+    </div>
+
+    <div class="mt-16 grid gap-x-12 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+      {treatmentGroups.map((g, i) => (
+        <Reveal client:visible delay={(i % 3) * 0.06}>
+          <p class="eyebrow text-gold-light">{g.title}</p>
+          <ul class="mt-4 divide-y divide-line-dark border-y border-line-dark">
+            {g.items.map((t) => (
+              <li class="flex gap-3 py-3 text-[0.95rem] leading-snug text-white/85">
+                <span aria-hidden="true" class="mt-2.5 h-px w-4 shrink-0 bg-gold-light"></span>
+                {t}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      ))}
+    </div>
+  </div>
+</section>

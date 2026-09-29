@@ -1,0 +1,47 @@
+---
+/**
+ * Dark title band for inner pages. Optional photo behind a navy veil.
+ */
+import Container from '@components/ui/Container.astro';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  lede?: string;
+  image?: string;
+  imageAlt?: string;
+  position?: string;
+}
+
+const { title, eyebrow, lede, image, imageAlt = '', position = 'center 30%' } = Astro.props;
+---
+
+<section data-dark class="relative isolate overflow-hidden bg-ink text-white">
+  {image && (
+    <>
+      <img
+        src={image}
+        alt={imageAlt}
+        loading="eager"
+        decoding="async"
+        style={`object-position:${position}`}
+        class="absolute inset-0 -z-20 h-full w-full object-cover"
+      />
+      <div
+        aria-hidden="true"
+        class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(11,29,66,0.94)_0%,rgba(11,29,66,0.8)_45%,rgba(11,29,66,0.45)_100%)]"
+      >
+      </div>
+    </>
+  )}
+  <div aria-hidden="true" class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-ink/60 to-transparent"></div>
+
+  <Container class="pb-16 pt-36 md:pb-24 md:pt-48">
+    <div class="max-w-3xl">
+      {eyebrow && <p class="eyebrow gold-rule text-gold-light">{eyebrow}</p>}
+      <h1 class="display mt-5 text-display-lg">{title}</h1>
+      {lede && <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/75">{lede}</p>}
+      <slot />
+    </div>
+  </Container>
+</section>

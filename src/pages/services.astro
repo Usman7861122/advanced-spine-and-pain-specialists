@@ -1,0 +1,20 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import ServicesGrid from '@components/sections/ServicesGrid.astro';
+import TreatmentIndex from '@components/sections/TreatmentIndex.astro';
+import WhyChoose from '@components/sections/WhyChoose.astro';
+import { images } from '@data/site';
+---
+
+<PageLayout
+  title="Treatments"
+  eyebrow="Treatments"
+  lede="Minimally invasive, image-guided treatments for neck, back, joint, nerve and headache pain."
+  image={images.spineModel}
+  imageAlt="A model of the human spine"
+  position="center"
+>
+  <ServicesGrid />
+  <TreatmentIndex />
+  <WhyChoose />
+</PageLayout>
