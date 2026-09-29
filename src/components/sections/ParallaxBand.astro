@@ -44,8 +44,8 @@ const { src, alt, eyebrow, title, text, cta, stats = [], position = 'center 40%'
     <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-white/60">
       <span class="eyebrow">In proud affiliation with</span>
       {affiliations.map((a) => (
-        <a href={a.url} target="_blank" rel="noopener" aria-label={`${a.name} (opens in a new tab)`} class="group">
-          <img src={a.logo} alt={a.name} width="110" height="40" class="h-8 w-auto opacity-70 brightness-0 invert transition-opacity group-hover:opacity-100" />
+        <a href={a.url} target="_blank" rel="noopener" aria-label={`${a.name} (opens in a new tab)`} class="hover-lift inline-flex h-14 items-center rounded-sm bg-white px-4">
+          <img src={a.logo} alt={a.name} width="110" height="40" class="h-9 w-auto" />
         </a>
       ))}
     </div>
