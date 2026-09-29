@@ -70,6 +70,10 @@ export const images = {
   /** Portrait of Dr. Khoury. */
   doctorPortrait: photo.khoury,
   spineModel: photo.spineModel,
+  /** 7-second Higgsfield animation of the spine model (herniated disc → pain → relief). */
+  spineVideoWebm: '/images/advspine/spine-disc.webm',
+  spineVideo: '/images/advspine/spine-disc.mp4',
+  spineVideoPoster: '/images/advspine/spine-disc-poster.jpg',
   consultSeated: photo.consultOffice,
   consultWindow: photo.consultSmile,
   handshake: photo.comfort,
