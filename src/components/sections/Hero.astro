@@ -1,63 +1,57 @@
 ---
 /**
- * Home hero. Split layout: copy on the left, team photo on the right with a floating
- * rating card. Mobile: photo on top, text below.
+ * Home hero (same layout as the Bhalla template).
+ * Desktop (xl+): full-width photo, text sits directly over the empty left side.
+ * Smaller screens: photo on top, text below on navy.
+ * The photo is dark, so the text is white over a soft navy gradient.
  */
 import HeroCopy from '@components/sections/HeroCopy.astro';
-import Aurora from '@components/ui/Aurora.astro';
 import { site, images } from '@data/site';
 ---
 
-<section id="hero" class="relative isolate overflow-hidden bg-porcelain pt-20">
-  <Aurora />
-  <div class="container-x grid items-center gap-12 pb-16 pt-8 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-12 lg:gap-16 lg:py-16">
-    <!-- Copy -->
-    <div class="hero-in order-last lg:order-first lg:col-span-6">
-      <HeroCopy />
+<section id="hero" data-dark class="relative isolate bg-ink text-white">
+  <div class="relative w-full overflow-hidden pt-20 xl:pt-0">
+    <img
+      src={images.hero}
+      alt={`${site.doctor} and Amanda Worsham, FNP-C, of ${site.name}`}
+      width="1983"
+      height="793"
+      fetchpriority="high"
+      decoding="async"
+      class="hero-photo block aspect-[4/3] w-full object-cover object-[85%_center] sm:aspect-[16/8] sm:object-[80%_center] lg:aspect-auto xl:h-[max(40rem,46vw)] xl:object-[right_center]"
+    />
+    <!-- Navy gradient on the left so the text stays readable -->
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 hidden xl:block"
+      style="background: linear-gradient(90deg, rgba(11,29,66,0.92) 0%, rgba(11,29,66,0.75) 28%, rgba(11,29,66,0.3) 44%, rgba(11,29,66,0) 56%);"
+    >
     </div>
+    <!-- Dark top edge so the header reads on any screen -->
+    <div aria-hidden="true" class="absolute inset-x-0 top-0 hidden h-32 bg-gradient-to-b from-ink/60 to-transparent xl:block"></div>
+    <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink to-transparent"></div>
 
-    <!-- Photo -->
-    <div class="relative lg:col-span-6">
-      <div class="hero-photo relative overflow-hidden rounded-sm bg-ink shadow-[0_40px_80px_-40px_rgba(11,29,66,0.55)]">
-        <img
-          src={images.hero}
-          alt={`${site.doctor} and Amanda Worsham, FNP-C, of ${site.name}`}
-          width="920"
-          height="588"
-          fetchpriority="high"
-          decoding="async"
-          class="block aspect-[4/3] w-full object-cover object-center lg:aspect-[6/5]"
-        />
-        <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/70 to-transparent"></div>
-        <p class="absolute bottom-5 hidden text-[0.85rem] text-white/85 sm:left-6 sm:block lg:left-auto lg:right-6">
-          Dr. Andrew Khoury &amp; Amanda Worsham, FNP-C
-        </p>
+    <!-- Desktop: text directly over the photo -->
+    <div class="pointer-events-none absolute inset-0 hidden xl:block">
+      <div class="container-x flex h-full items-center pt-20">
+        <div class="hero-in pointer-events-auto max-w-[30rem] pt-4">
+          <HeroCopy />
+        </div>
       </div>
-
-      <!-- Rating card -->
-      <a
-        href="/#testimonials"
-        class="hero-card hover-lift absolute -bottom-6 left-4 flex items-center gap-4 border border-line bg-white px-5 py-4 shadow-[0_24px_50px_-28px_rgba(11,29,66,0.45)] sm:left-auto sm:right-6 lg:-left-10 lg:right-auto lg:bottom-10"
-      >
-        <span class="display text-4xl leading-none text-ink">{site.rating.score}</span>
-        <span>
-          <span class="flex gap-0.5 text-[#ffbe4d]" aria-hidden="true">★★★★★</span>
-          <span class="mt-1 block text-[0.78rem] text-slate">{site.rating.count} patient reviews</span>
-        </span>
-      </a>
     </div>
+  </div>
+
+  <!-- Mobile and tablet: text below the photo -->
+  <div class="container-x hero-in pb-16 pt-8 xl:hidden">
+    <HeroCopy />
   </div>
 </section>
 
 <style>
-  .hero-in,
-  .hero-card {
+  .hero-in {
     opacity: 0;
     transform: translateY(18px);
     animation: hero-in 0.9s var(--ease-out-soft) 0.25s forwards;
-  }
-  .hero-card {
-    animation-delay: 0.6s;
   }
   .hero-photo {
     animation: photo-in 1.4s var(--ease-out-soft) both;
@@ -71,16 +65,13 @@ import { site, images } from '@data/site';
   @keyframes photo-in {
     from {
       opacity: 0;
-      transform: scale(0.98);
     }
     to {
       opacity: 1;
-      transform: none;
     }
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-in,
-    .hero-card,
     .hero-photo {
       opacity: 1;
       transform: none;

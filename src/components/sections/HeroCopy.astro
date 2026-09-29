@@ -1,35 +1,41 @@
 ---
-/** Text block inside the home hero. */
+/** Text block inside the home hero (white text, the hero photo is dark). Shared by desktop and mobile layouts. */
 import Button from '@components/ui/Button.astro';
 import { site, affiliations } from '@data/site';
 
-const trained = ['UTHealth Houston', 'Baylor', 'UTMB', 'Univ. of Florida'];
+const trained = ['UTHealth', 'Baylor', 'UTMB', 'Univ. of Florida'];
 ---
 
-<p class="eyebrow gold-rule text-gold">{site.role}</p>
-<h1 class="display mt-5 text-[clamp(2.6rem,4.6vw,4.4rem)] leading-[1.02] text-ink">
-  Treat pain at its <em class="font-light italic text-gold">source</em>. Get your life back.
+<p class="eyebrow gold-rule text-gold-light">Interventional pain management</p>
+<h1 class="display mt-5 text-[clamp(2.5rem,3.7vw,3.9rem)] leading-[1.02] text-white">
+  Treat pain at its <em class="font-light italic text-gold-light">source</em>. Get your life back.
 </h1>
-<p class="mt-6 max-w-lg text-[1.05rem] leading-relaxed text-slate">
+<p class="mt-6 max-w-md text-[1.05rem] leading-relaxed text-white/75">
   Minimally invasive, board-certified pain care for the neck, back, joints and nerves, delivered with compassion in
   Spring and Liberty, Texas.
 </p>
 <div class="mt-8 flex flex-wrap gap-3">
-  <Button href="/contact">Request an appointment</Button>
-  <Button href={site.phoneHref} variant="outline">Call {site.phone}</Button>
+  <Button href="/contact" variant="light">Request an appointment</Button>
+  <Button href="#about" variant="outline-light">Meet Dr. Khoury</Button>
 </div>
 
-<div class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6">
-  <span class="eyebrow text-mist">Trained at</span>
-  {trained.map((t) => <span class="display text-xl text-ink">{t}</span>)}
+<div class="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/15 pt-5">
+  <span class="eyebrow text-white/50">Trained at</span>
+  {trained.map((t) => <span class="display text-lg text-white">{t}</span>)}
 </div>
 
-<div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-mist">
-  <span class="eyebrow">In proud affiliation with</span>
+<div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
+  <span class="eyebrow text-white/50">Affiliated with</span>
   {
     affiliations.map((a) => (
-      <a href={a.url} target="_blank" rel="noopener" aria-label={`${a.name} (opens in a new tab)`} class="group">
-        <img src={a.logo} alt={a.name} width="110" height="40" class="h-8 w-auto opacity-75 mix-blend-multiply transition-opacity group-hover:opacity-100" />
+      <a
+        href={a.url}
+        target="_blank"
+        rel="noopener"
+        aria-label={`${a.name} (opens in a new tab)`}
+        class="inline-flex h-10 items-center rounded-sm bg-white px-2.5 transition-transform hover:-translate-y-0.5"
+      >
+        <img src={a.logo} alt={a.name} width="100" height="36" class="h-7 w-auto" />
       </a>
     ))
   }

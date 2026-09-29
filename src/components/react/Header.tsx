@@ -149,7 +149,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
         </nav>
 
         {/* Right actions */}
-        <div className="hidden lg:flex shrink-0 items-center gap-6">
+        <div className="hidden xl:flex shrink-0 items-center gap-6">
           <a
             href={site.phoneHref}
             className={cn('hidden 2xl:block whitespace-nowrap text-[0.9rem] font-medium transition-colors', mutedColor)}

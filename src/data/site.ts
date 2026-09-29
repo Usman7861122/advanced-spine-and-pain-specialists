@@ -62,7 +62,7 @@ export const images = {
   logo: photo.logo,
   logoDark: photo.logo,
   /** Home hero: Dr. Khoury and Amanda Worsham, FNP-C. */
-  hero: photo.khouryWorsham,
+  hero: '/images/advspine/main.jpg',
   /** Wide photo for the About page title band. */
   headshotWide: photo.khouryWorsham,
   /** Portrait of Dr. Khoury. */
