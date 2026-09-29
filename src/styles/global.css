@@ -235,3 +235,36 @@ body {
     animation: none;
   }
 }
+
+/* ---------- Scroll reveal (see /src/lib/scroll-reveal.ts) ---------- */
+.sr {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  filter: blur(4px);
+  transition:
+    opacity 0.9s var(--ease-out-soft),
+    transform 1s var(--ease-out-soft),
+    filter 0.9s var(--ease-out-soft);
+  will-change: opacity, transform;
+}
+.sr.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Photos unfold: a soft inset clip opens while the image settles from a slight zoom. */
+.sr-media {
+  opacity: 0;
+  clip-path: inset(6% 6% 6% 6% round 4px);
+  transform: scale(1.04);
+  transition:
+    opacity 1s var(--ease-out-soft),
+    clip-path 1.3s var(--ease-out-soft),
+    transform 1.4s var(--ease-out-soft);
+}
+.sr-media.is-in {
+  opacity: 1;
+  clip-path: inset(0 0 0 0 round 0);
+  transform: none;
+}
