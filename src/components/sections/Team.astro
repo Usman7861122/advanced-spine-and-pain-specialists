@@ -2,6 +2,8 @@
 /** The care team: three provider cards with photo, role and short bio. */
 import Reveal from '@components/react/Reveal';
 import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
 import { team } from '@data/site';
 
 interface Props {
@@ -30,10 +32,17 @@ const { full = false } = Astro.props;
               <h3 class="display text-[1.6rem] leading-tight text-ink">{p.name}</h3>
               <p class="eyebrow mt-3 leading-relaxed text-gold">{p.role}</p>
               <p class:list={['mt-4 text-[0.95rem] leading-relaxed', !full && 'line-clamp-4']}>{p.bio}</p>
+              <a href={`/about#${p.slug}`} class="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-medium text-ink transition-colors hover:text-gold">
+                Read full profile
+                <Icon name="arrow" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
             </div>
           </article>
         </Reveal>
       ))}
     </ul>
+    <div class="mt-12">
+      <Button href="/about">Meet the whole team</Button>
+    </div>
   </div>
 </section>

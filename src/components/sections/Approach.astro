@@ -1,0 +1,28 @@
+---
+/** "How we care for you": four numbered steps on navy. */
+import { approach } from '@data/site';
+---
+
+<section id="approach" data-dark class="section-y bg-ink text-white">
+  <div class="container-x">
+    <div class="max-w-3xl">
+      <p class="eyebrow gold-rule text-gold-light">Our approach</p>
+      <h2 class="display mt-5 text-display-lg">How we care for you.</h2>
+      <p class="mt-6 text-lg leading-relaxed text-white/70">
+        Every patient is different, but every plan follows the same four promises.
+      </p>
+    </div>
+
+    <ol class="mt-16 grid gap-px overflow-hidden rounded-sm bg-line-dark sm:grid-cols-2 lg:grid-cols-4">
+      {
+        approach.map((s, i) => (
+          <li class="spot card-line bg-ink p-8 transition-colors duration-300 hover:bg-ink-soft md:p-10">
+            <span class="display text-5xl leading-none text-gold-light">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="display mt-8 text-[1.7rem] leading-tight">{s.title}</h3>
+            <p class="mt-4 text-[0.95rem] leading-relaxed text-white/65">{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

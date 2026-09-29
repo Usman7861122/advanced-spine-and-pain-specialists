@@ -1,0 +1,55 @@
+---
+/** About page opener: the practice's story, its motto, and key numbers. */
+import Aurora from '@components/ui/Aurora.astro';
+import { site, locations, treatmentGroups } from '@data/site';
+
+const treatmentCount = treatmentGroups.reduce((n, g) => n + g.items.length, 0);
+const stats = [
+  { value: `${site.rating.score}★`, label: `Average rating from ${site.rating.count} reviews` },
+  { value: '2x', label: 'Houston Chronicle Best of the Best' },
+  { value: `${treatmentCount}+`, label: 'Treatments offered' },
+  { value: String(locations.length), label: 'Offices: Spring & Liberty, TX' },
+];
+---
+
+<section id="story" class="section-y relative isolate overflow-hidden">
+  <Aurora />
+  <div class="container-x grid gap-14 lg:grid-cols-12 lg:gap-20">
+    <div class="lg:col-span-5">
+      <p class="eyebrow gold-rule text-gold">Our story</p>
+      <blockquote class="display mt-6 text-[clamp(2rem,3.4vw,3rem)] leading-[1.1] text-ink">
+        “For without compassion, medicine is merely{' '}<em class="font-light italic text-gold">science</em>.”
+      </blockquote>
+      <p class="mt-5 text-[0.95rem] text-mist">Dr. Andrew M. Khoury, founder</p>
+    </div>
+
+    <div class="space-y-5 text-lg leading-relaxed lg:col-span-7 lg:pt-12">
+      <p>
+        Chronic pain affects 1 in 3 Americans, more than heart disease and cancer combined. Too often, people are told
+        to simply live with it.
+      </p>
+      <p>
+        Dr. Khoury founded Advanced Spine and Pain Specialists to offer another path: find where the pain truly comes
+        from, then treat it at the source with the least invasive option that works. Today our team of physicians and a
+        nurse practitioner cares for patients in Spring and Liberty, Texas.
+      </p>
+      <p>
+        We are proud to be voted Houston Chronicle’s Best of the Best pain management clinic, and prouder still of the
+        trust our patients place in us every day.
+      </p>
+    </div>
+  </div>
+
+  <div class="container-x mt-20">
+    <ul class="grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-line bg-line lg:grid-cols-4">
+      {
+        stats.map((s) => (
+          <li class="bg-porcelain p-7 md:p-9">
+            <p class="display text-[clamp(2.4rem,4vw,3.4rem)] leading-none text-ink">{s.value}</p>
+            <p class="mt-3 text-[0.85rem] leading-snug text-slate">{s.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

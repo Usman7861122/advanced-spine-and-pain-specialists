@@ -1,0 +1,91 @@
+---
+/**
+ * Full provider profiles for the About page. One row per provider, photo side alternates.
+ * Each row has an id (#khoury, #jones, #worsham) so other pages can link straight to it.
+ */
+import Button from '@components/ui/Button.astro';
+import { team } from '@data/site';
+---
+
+<section id="team" class="bg-bone/60">
+  <div class="container-x pb-4 pt-20 md:pt-28">
+    <p class="eyebrow gold-rule text-gold">Meet the team</p>
+    <h2 class="display mt-5 max-w-3xl text-display-lg text-ink">The people who will care for you.</h2>
+    <!-- Jump links -->
+    <nav aria-label="Providers" class="mt-8 flex flex-wrap gap-2">
+      {
+        team.map((p) => (
+          <a
+            href={`#${p.slug}`}
+            class="inline-flex h-10 items-center rounded-full border border-line bg-porcelain px-4 text-[0.85rem] text-ink transition-colors hover:border-gold hover:text-gold"
+          >
+            {p.name.split(',')[0]}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  {
+    team.map((p, i) => (
+      <article id={p.slug} class="scroll-mt-24 py-16 md:py-24">
+        <div class="container-x grid items-start gap-12 lg:grid-cols-12 lg:gap-20">
+          <!-- Photo -->
+          <figure class:list={['relative lg:col-span-5 lg:sticky lg:top-28', i % 2 === 1 && 'lg:order-last']}>
+            <div class="img-zoom aspect-[4/5] overflow-hidden rounded-sm bg-ink">
+              <img src={p.photo} alt={p.name} loading="lazy" decoding="async" class="h-full w-full object-cover object-top" />
+            </div>
+            <figcaption
+              class:list={[
+                'absolute -bottom-6 max-w-[17rem] border border-line bg-porcelain p-5 shadow-[0_20px_50px_-30px_rgba(11,29,66,0.35)]',
+                i % 2 === 1 ? '-left-4 md:-left-8' : '-right-4 md:-right-8',
+              ]}
+            >
+              <p class="display text-lg leading-snug text-ink">“{p.quote}”</p>
+            </figcaption>
+          </figure>
+
+          <!-- Text -->
+          <div class="lg:col-span-7">
+            <p class="eyebrow text-gold">{p.role}</p>
+            <h3 class="display mt-4 text-[clamp(2.2rem,3.6vw,3.3rem)] leading-[1.05] text-ink">{p.name}</h3>
+            <div class="mt-7 space-y-5 text-lg leading-relaxed">
+              {p.about.map((t) => <p>{t}</p>)}
+            </div>
+
+            <div class="mt-10 grid gap-10 sm:grid-cols-2">
+              <div>
+                <p class="eyebrow text-mist">Focus areas</p>
+                <ul class="mt-4 divide-y divide-line border-y border-line">
+                  {p.focus.map((f) => (
+                    <li class="flex items-center gap-3 py-3 text-[0.95rem] text-ink">
+                      <span aria-hidden="true" class="h-px w-4 shrink-0 bg-gold" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p class="eyebrow text-mist">Education</p>
+                <ul class="mt-4 space-y-4 border-l border-line pl-5">
+                  {p.education.map((e) => (
+                    <li>
+                      <p class="text-[0.72rem] uppercase tracking-[0.16em] text-gold">{e.label}</p>
+                      <p class="mt-1 text-[0.95rem] leading-snug text-ink">{e.value}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <p class="mt-10 border-l-2 border-gold pl-5 text-[0.98rem] italic leading-relaxed text-slate">{p.personal}</p>
+
+            <div class="mt-10 flex flex-wrap gap-3">
+              <Button href="/contact">Book with {p.firstName}</Button>
+            </div>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</section>

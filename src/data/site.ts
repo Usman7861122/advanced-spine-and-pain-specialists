@@ -144,26 +144,79 @@ export const site = {
   },
 };
 
-/** Providers (About page and home Team section). */
+/** Providers (About page profiles and home Team section). */
 export const team = [
   {
+    slug: 'khoury',
+    firstName: 'Dr. Khoury',
     name: 'Andrew M. Khoury, MD',
     role: 'Founder · Double board-certified pain specialist',
     photo: photo.khoury,
     bio: 'Dr. Khoury founded Advanced Spine and Pain Specialists to treat chronic pain at its source. He has extensive experience with minimally invasive techniques including kyphoplasty, spinal cord and DRG stimulation, peripheral nerve stimulation, intrathecal pump therapy and indirect lumbar decompression, and runs an in-office ketamine infusion protocol for hard-to-treat pain.',
+    quote: 'Treat pain at its source, and treat people with compassion.',
+    about: [
+      '“For without compassion, medicine is merely science.” Dr. Khoury has lived by those words since he started his career as an emergency medical technician. Today he is board-certified by the American Board of Anesthesiology and in interventional pain management, and he founded Advanced Spine and Pain Specialists in Spring and Liberty, Texas.',
+      'He has extensive experience with minimally invasive techniques that treat pain at the source, including kyphoplasty, dorsal root ganglion and spinal cord stimulation, peripheral nerve stimulation, intrathecal pump therapy and indirect lumbar decompression for spinal stenosis. He also uses his anesthesiology training to run an in-office ketamine infusion protocol for hard-to-treat pain.',
+      'With published research of his own and years of volunteer work, Dr. Khoury works alongside his peers and his patients toward one goal: a better quality of life.',
+    ],
+    focus: ['Spinal cord & DRG stimulation', 'Kyphoplasty', 'MILD® & indirect decompression', 'Intrathecal pain pumps', 'Ketamine infusions'],
+    education: [
+      { label: 'Undergraduate', value: 'B.S. Biomedical Engineering, University of Houston' },
+      { label: 'Medical school', value: 'University of Texas Medical School at Houston' },
+      { label: 'Internship', value: 'General Surgery, Baylor College of Medicine' },
+      { label: 'Residency', value: 'Anesthesiology, UT Medical Branch, Galveston' },
+      { label: 'Fellowship', value: 'Multidisciplinary Pain Medicine, University of Florida' },
+    ],
+    personal: 'Outside the office, Dr. Khoury enjoys time with his wife and two kids, working out, skiing and traveling.',
   },
   {
+    slug: 'jones',
+    firstName: 'Dr. Jones',
     name: 'Amy Jones, MD',
     role: 'Board-certified primary care sports medicine physician',
     photo: photo.jones,
     bio: 'Dr. Jones specializes in non-operative orthopedic care for active people and athletes, from weekend warriors to former pros. She trained at UTMB, where she was chief resident, and completed a sports medicine fellowship at Houston Methodist Willowbrook with a focus on ultrasound-guided diagnosis and procedures.',
+    quote: 'Stay healthy, recover fully and perform at your best.',
+    about: [
+      'Dr. Jones is a board-certified primary care sports medicine physician. She specializes in non-operative orthopedic care and the overall health and performance of active people and athletes, helping them stay healthy, recover fully and perform at their best.',
+      'Her approach is patient-centered, with evidence-based treatments and personalized care for long-term performance and well-being. She has treated athletes at every stage, from Division I players to weekend warriors.',
+    ],
+    focus: ['Non-operative orthopedic care', 'Sports injuries', 'Ultrasound-guided procedures', 'Joint & tendon pain', 'Athlete care'],
+    education: [
+      { label: 'Undergraduate', value: 'B.S. Microbiology, Texas State University' },
+      { label: 'Medical school', value: 'University of Texas Medical Branch (UTMB)' },
+      { label: 'Residency', value: 'Family Medicine, UTMB (Chief Resident)' },
+      { label: 'Fellowship', value: 'Primary Care Sports Medicine, Houston Methodist Willowbrook' },
+    ],
+    personal: 'In her free time she enjoys her husband and two schnauzers, pickleball, their home gym, traveling and Astros games.',
   },
   {
+    slug: 'worsham',
+    firstName: 'Amanda',
     name: 'Amanda Worsham, MSN, APRN, FNP-C',
     role: 'Family nurse practitioner',
     photo: photo.worsham,
     bio: 'Amanda has practiced in pain management since earning her nurse practitioner license from the University of Texas at Tyler. She is passionate about patient education and long-term relationships with patients. Her favorite therapies include spinal cord stimulation, ReActiv8 and the intrathecal pain pump.',
+    quote: 'Better quality of life starts with a good relationship.',
+    about: [
+      'Amanda is originally from Tyler, Texas. Her nursing background includes medical-surgical care, cardiology, pre- and post-surgical care and endoscopy, and she has practiced in pain management since earning her nurse practitioner license.',
+      'She is passionate about patient education, building strong patient-provider relationships and improving quality of life. Some of her favorite therapies are spinal cord stimulation, ReActiv8 and the intrathecal pain pump.',
+    ],
+    focus: ['Spinal cord stimulation', 'ReActiv8®', 'Intrathecal pain pumps', 'Patient education', 'Follow-up care'],
+    education: [
+      { label: 'Nursing', value: 'B.S. Nursing, University of Texas at Tyler (2008)' },
+      { label: 'Graduate', value: 'M.S. Nursing, Family Nurse Practitioner, UT Tyler (2018)' },
+    ],
+    personal: 'In her personal time Amanda enjoys her husband and two daughters, traveling, exercising and live music.',
   },
+];
+
+/** "How we care for you" steps (About page). */
+export const approach = [
+  { title: 'We listen', text: 'Your first visit starts with your story: where it hurts, how long, what you have tried and what you want to get back to.' },
+  { title: 'We find the source', text: 'An exam and a careful review of your imaging show where the pain really comes from, so treatment is aimed at the cause.' },
+  { title: 'We treat it, gently', text: 'We start with the least invasive option likely to work, from image-guided injections to advanced stimulation, and explain every step.' },
+  { title: 'We stay with you', text: 'Follow-up visits track your progress and adjust the plan, so relief lasts and you keep moving forward.' },
 ];
 
 /** Long-form content for a service detail page. Optional per service. */
@@ -777,7 +830,7 @@ export const posts = [
 /** Header navigation. `mega` names the mega menu an item opens. */
 export const nav: { label: string; href: string; mega?: 'services' | 'conditions' }[] = [
   { label: 'Home', href: '/' },
-  { label: 'Our Team', href: '/about' },
+  { label: 'About', href: '/about' },
   { label: 'Treatments', href: '/services', mega: 'services' },
   { label: 'Conditions', href: '/conditions', mega: 'conditions' },
   { label: 'Testimonials', href: '/#testimonials' },

@@ -1,21 +1,27 @@
 ---
 import PageLayout from '@layouts/PageLayout.astro';
-import About from '@components/sections/About.astro';
-import Team from '@components/sections/Team.astro';
-import Credentials from '@components/sections/Credentials.astro';
+import AboutIntro from '@components/sections/AboutIntro.astro';
+import ProviderProfiles from '@components/sections/ProviderProfiles.astro';
+import Approach from '@components/sections/Approach.astro';
+import Locations from '@components/sections/Locations.astro';
 import LegacyBand from '@components/sections/LegacyBand.astro';
-import WhyChoose from '@components/sections/WhyChoose.astro';
 import TestimonialsSection from '@components/sections/TestimonialsSection.astro';
-import CtaBand from '@components/sections/CtaBand.astro';
-import { site, images } from '@data/site';
+import { images } from '@data/site';
 ---
 
-<PageLayout title="Meet the Team" eyebrow="About us" lede={site.description} image={images.headshotWide} imageAlt="Dr. Andrew Khoury and Amanda Worsham, FNP-C" position="60% 30%">
-  <About />
-  <Team full />
-  <Credentials />
+<PageLayout
+  title="About Us"
+  eyebrow="About us"
+  lede="Board-certified, compassionate pain care in Spring and Liberty, Texas. Meet the team that treats pain at its source."
+  description="Meet Dr. Andrew Khoury, Dr. Amy Jones and Amanda Worsham, FNP-C, of Advanced Spine and Pain Specialists in Spring and Liberty, TX."
+  image={images.headshotWide}
+  imageAlt="Dr. Andrew Khoury and Amanda Worsham, FNP-C"
+  position="60% 30%"
+>
+  <AboutIntro />
+  <ProviderProfiles />
+  <Approach />
+  <Locations />
   <LegacyBand />
-  <WhyChoose />
   <TestimonialsSection />
-  <CtaBand />
 </PageLayout>
