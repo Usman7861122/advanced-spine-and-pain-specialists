@@ -42,7 +42,7 @@ export default function Testimonials({ items, interval = 7000, image, imageAlt =
       {image && (
         <div className="lg:col-span-4">
           <div className="aspect-[4/3] overflow-hidden rounded-sm bg-bone lg:aspect-[4/5]">
-            <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="h-full w-full object-cover object-[40%_center]" />
+            <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
           </div>
         </div>
       )}
