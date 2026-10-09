@@ -415,7 +415,7 @@ const mildContent: ServiceContent = {
     title: 'What is the MILD® procedure?',
     text: [
       'In lumbar spinal stenosis, a thick ligament in the back of the spinal canal presses on the nerves. This causes pain, heaviness and numbness in the back and legs, especially when standing or walking.',
-      'During MILD, Dr. Khoury uses X-ray guidance and small tools through a port the size of a baby aspirin to remove small pieces of the thickened ligament. This makes more space for the nerves. Related options such as Vertiflex™ spacers are also offered.',
+      'During MILD, Dr. Khoury uses X-ray guidance and small tools through a port the size of a baby aspirin to remove small pieces of the thickened ligament. This makes more space for the nerves.',
     ],
   },
   candidates: {
@@ -628,7 +628,6 @@ export const treatmentGroups = [
       'Spinal cord stimulation & DRG stimulation',
       'Spinal Simplicity Minuteman®',
       'Southern Spine Stabilink®',
-      'Vertiflex™',
     ],
   },
   {
@@ -693,7 +692,7 @@ export const conditionGroups = [
       { slug: 'neck-pain', title: 'Neck pain', kind: 'Pain', summary: 'Neck pain can come from worn facet joints, discs or pinched nerves and may spread to the shoulders, arms or head. Facet blocks, RFA and cervical epidurals often help.' },
       { slug: 'sciatica', title: 'Sciatica', kind: 'Nerve', summary: 'Sciatica is pain that shoots from the lower back down the leg when a nerve root is irritated. Epidural steroid injections are a common first step.' },
       { slug: 'herniated-disc', title: 'Herniated disc', kind: 'Disc', summary: 'When the soft center of a disc pushes out, it can press on nearby nerves. Most herniated discs improve without surgery with injections and therapy.' },
-      { slug: 'spinal-stenosis', title: 'Spinal stenosis', kind: 'Narrowing', summary: 'Narrowing of the spinal canal that squeezes nerves, often causing leg pain when standing or walking. Options include epidurals, MILD® and Vertiflex™.' },
+      { slug: 'spinal-stenosis', title: 'Spinal stenosis', kind: 'Narrowing', summary: 'Narrowing of the spinal canal that squeezes nerves, often causing leg pain when standing or walking. Options include epidural steroid injections and the MILD® procedure.' },
       { slug: 'compression-fractures', title: 'Compression fractures', kind: 'Fracture', summary: 'Collapsed spinal bones, often from osteoporosis, cause sudden sharp back pain. Kyphoplasty can stabilize the bone and bring fast relief.' },
     ],
   },
