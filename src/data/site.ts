@@ -127,16 +127,16 @@ export const locations: {
   conditions?: string[];
 }[] = [
   {
-    slug: 'spring',
-    name: 'Spring',
+    slug: 'the-woodlands',
+    name: 'The Woodlands',
     line1: '25305 Interstate 45',
-    line2: 'Spring, TX 77380',
-    mapsUrl: 'https://maps.google.com/?q=25305+Interstate+45+Spring+TX+77380',
-    embed: 'https://www.google.com/maps?q=25305+Interstate+45+Spring+TX+77380&output=embed',
+    line2: 'The Woodlands, TX 77380',
+    mapsUrl: 'https://maps.google.com/?q=25305+Interstate+45+The+Woodlands+TX+77380',
+    embed: 'https://www.google.com/maps?q=25305+Interstate+45+The+Woodlands+TX+77380&output=embed',
     hoursSummary: 'Mon – Fri, 8:00 AM – 5:00 PM',
     hours: openDays(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
     providers: ['khoury'],
-    area: 'Spring, The Woodlands, Conroe and north Houston',
+    area: 'The Woodlands, Spring, Conroe and north Houston',
     blurb:
       'Our main office on Interstate 45 is open five days a week, with Dr. Khoury and our care team for consultations, image-guided procedures and follow-up care.',
   },
@@ -169,7 +169,7 @@ export const inSentence = (t: string) =>
     .map((w) => (/^[A-Z][a-z]/.test(w) ? w.toLowerCase() : w))
     .join(' ');
 
-/** "Spring and Liberty, TX" / "Spring, TX" (for sentences, titles and meta descriptions). */
+/** "The Woodlands and Liberty, TX" / "The Woodlands, TX" (for sentences, titles and meta descriptions). */
 export const placeNames = (locs: { name: string }[], joiner = 'and') =>
   locs.length === 0 ? 'Texas' : `${locs.map((l) => l.name).join(` ${joiner} `)}, TX`;
 
@@ -177,10 +177,10 @@ export const site = {
   name: 'Advanced Spine and Pain Specialists',
   shortName: 'Advanced Spine & Pain',
   doctor: 'Dr. Andrew M. Khoury',
-  role: 'Interventional Pain Management · Spring & Liberty, TX',
+  role: 'Interventional Pain Management · The Woodlands & Liberty, TX',
   tagline: 'Treat pain at its source',
   description:
-    'Advanced Spine and Pain Specialists is an interventional pain management practice in Spring and Liberty, Texas, led by board-certified anesthesiologist and pain specialist Dr. Andrew M. Khoury.',
+    'Advanced Spine and Pain Specialists is an interventional pain management practice in The Woodlands and Liberty, Texas, led by board-certified anesthesiologist and pain specialist Dr. Andrew M. Khoury.',
   phone: '281-868-7246',
   phoneHref: 'tel:+12818687246',
   email: 'info@advspine.org',
@@ -210,7 +210,7 @@ export const team = [
     bio: 'Dr. Khoury founded Advanced Spine and Pain Specialists to treat chronic pain at its source. He has extensive experience with minimally invasive techniques including kyphoplasty, spinal cord and DRG stimulation, peripheral nerve stimulation, intrathecal pump therapy and indirect lumbar decompression, and runs an in-office ketamine infusion protocol for hard-to-treat pain.',
     quote: 'Treat pain at its source, and treat people with compassion.',
     about: [
-      '“For without compassion, medicine is merely science.” Dr. Khoury has lived by those words since he started his career as an emergency medical technician. Today he is board-certified by the American Board of Anesthesiology and in interventional pain management, and he founded Advanced Spine and Pain Specialists in Spring and Liberty, Texas.',
+      '“For without compassion, medicine is merely science.” Dr. Khoury has lived by those words since he started his career as an emergency medical technician. Today he is board-certified by the American Board of Anesthesiology and in interventional pain management, and he founded Advanced Spine and Pain Specialists in The Woodlands and Liberty, Texas.',
       'He has extensive experience with minimally invasive techniques that treat pain at the source, including kyphoplasty, dorsal root ganglion and spinal cord stimulation, peripheral nerve stimulation, intrathecal pump therapy and indirect lumbar decompression for spinal stenosis. He also uses his anesthesiology training to run an in-office ketamine infusion protocol for hard-to-treat pain.',
       'With published research of his own and years of volunteer work, Dr. Khoury works alongside his peers and his patients toward one goal: a better quality of life.',
     ],
@@ -840,8 +840,8 @@ export const posts = [
     image: photo.xray,
   },
   {
-    slug: 'sciatica-relief-spring-tx',
-    title: 'Pain shooting down your leg? Sciatica relief in Spring, TX',
+    slug: 'sciatica-relief-the-woodlands-tx',
+    title: 'Pain shooting down your leg? Sciatica relief in The Woodlands, TX',
     excerpt:
       'Most sciatica gets better without surgery. Learn the warning signs, what to try first, and when to see a pain specialist.',
     date: '2026-07-30',

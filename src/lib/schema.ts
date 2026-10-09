@@ -1,7 +1,7 @@
 /**
  * schema.org structured data (JSON-LD) for treatment and condition pages.
  * Tells search engines what the page is about and which local clinic offers it,
- * with the address of every office. Helps "near me" and "in Spring, TX" searches.
+ * with the address of every office. Helps "near me" and "in The Woodlands, TX" searches.
  */
 import { site } from '@data/site';
 

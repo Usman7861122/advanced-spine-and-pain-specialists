@@ -20,7 +20,7 @@ const c = service.content;
 const heroImage = c?.photos[0] ?? images.consultWindow;
 const others = services.filter((s) => s.slug !== service.slug);
 
-// Local SEO: which offices offer this treatment, as "Spring and Liberty, TX" / "Spring & Liberty, TX".
+// Local SEO: which offices offer this treatment, as "The Woodlands and Liberty, TX" / "The Woodlands & Liberty, TX".
 const locs = locationsForService(service.slug);
 const places = placeNames(locs);
 const placesShort = placeNames(locs, '&');
