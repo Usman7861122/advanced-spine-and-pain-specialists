@@ -74,7 +74,7 @@ export const images = {
   spineVideo: '/images/advspine/spine-disc.mp4',
   spineVideoPoster: '/images/advspine/spine-disc-poster.jpg',
   consultSeated: photo.consultOffice,
-  consultWindow: photo.consultSmile,
+  consultWindow: photo.consultOffice,
   /** Smiling patient for the Patient stories section (Unsplash, free license). */
   happyPatient: '/images/advspine/happy-patient.jpg',
   handshake: photo.comfort,
@@ -91,7 +91,7 @@ export const images = {
     { src: photo.khouryWorsham, alt: 'Dr. Andrew Khoury and Amanda Worsham, FNP-C' },
     { src: photo.waitingRoom, alt: 'A calm, modern waiting room' },
     { src: photo.khoury, alt: 'Dr. Andrew M. Khoury, MD' },
-    { src: photo.consultSmile, alt: 'A provider talking with a patient' },
+    { src: photo.comfort, alt: 'A provider reassuring a patient' },
     { src: photo.worsham, alt: 'Amanda Worsham, FNP-C' },
     { src: photo.spineModel, alt: 'Spine model used to explain treatment options' },
   ],
@@ -361,7 +361,7 @@ const rfaContent: ServiceContent = {
 };
 
 const scsContent: ServiceContent = {
-  photos: [photo.xray, photo.tablet, photo.consultSmile],
+  photos: [photo.xray, photo.tablet, photo.consultWoman],
   intro:
     'Spinal cord stimulation uses a small implanted device to change how pain signals travel to the brain. It helps people with long-term nerve pain who have not found relief with other treatments, and you can try it first before committing.',
   whatIs: {
@@ -884,6 +884,7 @@ export const nav: { label: string; href: string; mega?: 'services' | 'conditions
 /** Sections tracked by the "spine rail" on the home page (in page order). */
 export const homeSections = [
   { id: 'hero', label: 'Welcome' },
+  { id: 'recognition', label: 'Best of the Best' },
   { id: 'about', label: 'About' },
   { id: 'team', label: 'Team' },
   { id: 'services', label: 'Treatments' },

@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import SpineRail from '@components/react/SpineRail';
 import Hero from '@components/sections/Hero.astro';
+import AwardsStrip from '@components/sections/AwardsStrip.astro';
 import About from '@components/sections/About.astro';
 import Team from '@components/sections/Team.astro';
 import Services from '@components/sections/Services.astro';
@@ -18,6 +19,7 @@ import { homeSections } from '@data/site';
 <BaseLayout transparentHeader>
   <SpineRail client:idle sections={homeSections} />
   <Hero />
+  <AwardsStrip />
   <About />
   <Team />
   <Services />
