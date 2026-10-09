@@ -1,6 +1,7 @@
 ---
 import Testimonials from '@components/react/Testimonials';
 import SectionHeading from '@components/ui/SectionHeading.astro';
+import Button from '@components/ui/Button.astro';
 import { DotPattern } from '@/components/ui/dot-pattern';
 import { testimonials, images, site } from '@data/site';
 ---
@@ -19,6 +20,9 @@ import { testimonials, images, site } from '@data/site';
     <SectionHeading eyebrow="Patient stories" title="In their words." lede={`Rated ${site.rating.score} out of 5 from ${site.rating.count} patient reviews.`} />
     <div class="mt-14">
       <Testimonials client:visible items={testimonials} image={images.happyPatient} imageAlt="A smiling, happy patient" />
+    </div>
+    <div class="mt-12">
+      <Button href="/testimonials" variant="outline">Read all patient reviews</Button>
     </div>
   </div>
 </section>

@@ -1,0 +1,164 @@
+---
+/**
+ * All patient reviews, copied from the practice's review page (advspine.org/testimonials).
+ * Every review is in the HTML (good for SEO); the page shows 24 at a time with a "Show more" button.
+ */
+import PageLayout from '@layouts/PageLayout.astro';
+import Container from '@components/ui/Container.astro';
+import Button from '@components/ui/Button.astro';
+import ServiceArea from '@components/ui/ServiceArea.astro';
+import { site, images, locations } from '@data/site';
+import reviews from '@data/reviews.json';
+
+const PAGE = 24;
+const sorted = [...reviews].sort((a, b) => (a.date < b.date ? 1 : -1));
+const fmt = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const fiveStar = sorted.filter((r) => r.rating === 5).length;
+const khoury = sorted.filter((r) => /khoury/i.test(r.text)).length;
+const filters = [
+  { id: 'all', label: `All reviews (${sorted.length})` },
+  { id: 'five', label: `5 stars (${fiveStar})` },
+  { id: 'khoury', label: `Mention Dr. Khoury (${khoury})` },
+];
+---
+
+<PageLayout
+  title="Patient Reviews"
+  seoTitle={`Patient Reviews | ${site.name}, The Woodlands & Liberty, TX`}
+  description={`Rated ${site.rating.score} out of 5 from ${site.rating.count} patient reviews. Read what patients say about Dr. Khoury and Advanced Spine and Pain Specialists in The Woodlands and Liberty, TX.`}
+  eyebrow="Testimonials"
+  lede={`Rated ${site.rating.score} out of 5 from ${site.rating.count} patient reviews. Here is what our patients say about their care.`}
+  image={images.happyPatient}
+  imageAlt=""
+  position="center 25%"
+>
+  <ServiceArea slot="hero" locations={locations} label="Patients from" />
+
+  <!-- Rating summary -->
+  <section class="border-b border-line bg-bone/60 py-14 md:py-16">
+    <Container class="grid items-center gap-10 md:grid-cols-12">
+      <div class="flex items-center gap-6 md:col-span-5">
+        <p class="display text-[clamp(4rem,8vw,6rem)] leading-none text-ink">{site.rating.score}</p>
+        <div>
+          <p class="text-2xl tracking-[0.15em] text-[#ffbe4d]" aria-hidden="true">★★★★★</p>
+          <p class="mt-2 text-[0.95rem] text-slate">Average from {site.rating.count} patient reviews</p>
+        </div>
+      </div>
+      <p class="text-lg leading-relaxed md:col-span-7">
+        Every review below was written by a real patient after a visit to our offices. We read every one, and we are
+        grateful for the trust behind each of them.
+      </p>
+    </Container>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section-y">
+    <Container>
+      <div class="flex flex-wrap gap-2" role="group" aria-label="Filter reviews">
+        {
+          filters.map((f, i) => (
+            <button
+              type="button"
+              data-filter={f.id}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+              class="review-filter inline-flex h-10 items-center rounded-full border border-line px-4 text-[0.85rem] text-ink transition-colors hover:border-gold aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white"
+            >
+              {f.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <ul id="reviews" class="mt-10 columns-1 gap-6 md:columns-2 lg:columns-3">
+        {
+          sorted.map((r, i) => (
+            <li
+              data-five={r.rating === 5 ? '' : undefined}
+              data-khoury={/khoury/i.test(r.text) ? '' : undefined}
+              class:list={['review mb-6 break-inside-avoid border border-line bg-white p-7', i >= PAGE && 'hidden']}
+            >
+              <p class="text-[0.95rem] tracking-[0.12em] text-[#ffbe4d]" aria-label={`${r.rating} out of 5 stars`}>
+                {'★'.repeat(r.rating)}
+                <span class="text-line">{'★'.repeat(5 - r.rating)}</span>
+              </p>
+              <blockquote class="mt-4 text-[1.02rem] leading-relaxed text-ink">“{r.text}”</blockquote>
+              <p class="mt-5 flex items-baseline justify-between gap-4 border-t border-line pt-4 text-[0.85rem]">
+                <span class="font-medium text-ink">{r.name}</span>
+                <time datetime={r.date} class="text-mist">{fmt.format(new Date(r.date))}</time>
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-6 flex flex-col items-center gap-3">
+        <p id="reviews-count" class="text-[0.85rem] text-mist" aria-live="polite"></p>
+        <button
+          id="reviews-more"
+          type="button"
+          class="hover-lift inline-flex h-12 items-center rounded-full border border-ink/25 px-7 text-[0.875rem] font-medium text-ink transition-colors hover:border-ink"
+        >
+          Show more reviews
+        </button>
+      </div>
+    </Container>
+  </section>
+
+  <!-- CTA -->
+  <section data-dark class="section-y bg-ink text-white">
+    <Container class="grid gap-10 lg:grid-cols-12 lg:items-center">
+      <div class="lg:col-span-8">
+        <p class="eyebrow gold-rule text-gold-light">Your turn</p>
+        <h2 class="display mt-5 text-display-md">Ready to feel better? We’d love to help.</h2>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-white/70">
+          Book a visit at our office in The Woodlands or Liberty, Texas.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
+        <Button href="/contact" variant="light" size="lg">Request an appointment</Button>
+        <Button href={site.phoneHref} variant="outline-light" size="lg">{site.phone}</Button>
+      </div>
+    </Container>
+  </section>
+</PageLayout>
+
+<script>
+  // Filter chips + "Show more" (24 at a time). Without JavaScript the first 24 reviews show.
+  function initReviews() {
+    const list = document.getElementById('reviews');
+    const more = document.getElementById('reviews-more') as HTMLButtonElement | null;
+    const count = document.getElementById('reviews-count');
+    if (!list || !more || !count) return;
+    const STEP = 24;
+    const items = Array.from(list.querySelectorAll<HTMLElement>('.review'));
+    let filter = 'all';
+    let shown = STEP;
+
+    const matches = (el: HTMLElement) =>
+      filter === 'all' || (filter === 'five' && el.hasAttribute('data-five')) || (filter === 'khoury' && el.hasAttribute('data-khoury'));
+
+    const render = () => {
+      const visible = items.filter(matches);
+      items.forEach((el) => el.classList.add('hidden'));
+      visible.slice(0, shown).forEach((el) => el.classList.remove('hidden'));
+      count.textContent = `Showing ${Math.min(shown, visible.length)} of ${visible.length} reviews`;
+      more.hidden = shown >= visible.length;
+    };
+
+    more.onclick = () => {
+      shown += STEP;
+      render();
+    };
+    document.querySelectorAll<HTMLButtonElement>('.review-filter').forEach((btn) => {
+      btn.onclick = () => {
+        filter = btn.dataset.filter || 'all';
+        shown = STEP;
+        document.querySelectorAll('.review-filter').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        render();
+      };
+    });
+    render();
+  }
+  // Astro's page-load event fires on the first visit and after page changes.
+  document.addEventListener('astro:page-load', initReviews);
+</script>

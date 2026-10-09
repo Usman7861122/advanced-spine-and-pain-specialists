@@ -794,36 +794,45 @@ export const whyChoose = [
   },
 ];
 
+/**
+ * Featured reviews for the "Patient stories" carousel (home, About and office pages).
+ * Copied word for word from the practice's review page (advspine.org/testimonials).
+ * The full list lives in ./reviews.json and is shown on /testimonials.
+ */
 export const testimonials = [
   {
-    name: 'Beatrice W.',
-    treatment: 'Patient of Dr. Khoury',
+    name: 'Laira A.',
+    treatment: 'Injection patient',
     quote:
-      'Dr Khoury was so patient and listened to me about previous treatments that I had and failed. He gave me options so that I could make an informed decision.',
+      'I have had back injections for years with no success. Dr. Khoury did my injections on Friday and on Sunday I am 100% pain free for the first time in over 30 years!',
   },
   {
-    name: 'Lydia Y.',
-    treatment: 'Procedure patient',
-    quote:
-      'As soon as Dr. Khoury walked in my prep room his gentle greeting brought me immediately calmness.',
-  },
-  {
-    name: 'Joyce H.',
+    name: 'Gwendolyn M.',
     treatment: 'Patient of Dr. Khoury',
     quote:
-      'Dr. Khoury takes time to sit down and listen to you talk and lay out your concerns. I would recommend everyone to go see him.',
+      "I would recommend Dr. Khoury to anyone who's looking for a good pain management doctor. He is very knowledgeable, considerate, and professional.",
+  },
+  {
+    name: 'Robert C.',
+    treatment: 'Patient of Dr. Khoury & Amanda',
+    quote: 'Very pleased with the care I receive from Dr Khoury and Mrs Amanda, very caring and concerned about my well being.',
+  },
+  {
+    name: 'Wanda S.',
+    treatment: 'Epidural patient',
+    quote: 'Had an epidural today. Got me in and out on time. Dr. Khoury and his staff are awesome.',
+  },
+  {
+    name: 'Katherine L.',
+    treatment: 'Patient of Dr. Khoury',
+    quote:
+      'The staff is always very kind and attentive with patients. Dr. Khoury is caring with me and answering all my questions and concerns. I would definitely recommend.',
   },
   {
     name: 'Patricia G.',
     treatment: 'Patient of Dr. Khoury',
     quote:
       'Dr Khoury is always nice and listens closely when you share the issues. He is truly sincere about relieving your pains.',
-  },
-  {
-    name: 'Philip P.',
-    treatment: 'Verified patient',
-    quote:
-      'I would recommend Dr Khoury and the entire staff to everyone. My experience with everyone was great, everyone was so friendly and supportive.',
   },
 ];
 
@@ -867,7 +876,7 @@ export const nav: { label: string; href: string; mega?: 'services' | 'conditions
   { label: 'Treatments', href: '/services', mega: 'services' },
   { label: 'Conditions', href: '/conditions', mega: 'conditions' },
   { label: 'Locations', href: '/locations', mega: 'locations' },
-  { label: 'Testimonials', href: '/#testimonials' },
+  { label: 'Testimonials', href: '/testimonials' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ];
