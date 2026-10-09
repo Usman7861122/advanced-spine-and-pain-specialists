@@ -75,6 +75,8 @@ export const images = {
   spineVideoPoster: '/images/advspine/spine-disc-poster.jpg',
   consultSeated: photo.consultOffice,
   consultWindow: photo.consultSmile,
+  /** Smiling patient for the Patient stories section (Unsplash, free license). */
+  happyPatient: '/images/advspine/happy-patient.jpg',
   handshake: photo.comfort,
   handshakeScreen: photo.consultWoman,
   waitingRoom: photo.waitingRoom,
