@@ -19,7 +19,6 @@ const remote = {
   logo: `${PP}/images/provider/photos/2535103.png`,
   khouryWorsham: `${PP}/docs/449520.jpg`,
   khoury: `${PP}/docs/449519.jpg`,
-  jones: `${PP}/docs/461550.jpg`,
   worsham: `${PP}/docs/449518.jpg`,
   best2025: `${PPI}/2809348.jpg`,
   best2024: `${PPI}/2809353.jpg`,
@@ -91,7 +90,7 @@ export const images = {
     { src: photo.waitingRoom, alt: 'A calm, modern waiting room' },
     { src: photo.khoury, alt: 'Dr. Andrew M. Khoury, MD' },
     { src: photo.consultSmile, alt: 'A provider talking with a patient' },
-    { src: photo.jones, alt: 'Dr. Amy Jones, MD' },
+    { src: photo.worsham, alt: 'Amanda Worsham, FNP-C' },
     { src: photo.spineModel, alt: 'Spine model used to explain treatment options' },
   ],
 };
@@ -134,10 +133,10 @@ export const locations: {
     embed: 'https://www.google.com/maps?q=25305+Interstate+45+Spring+TX+77380&output=embed',
     hoursSummary: 'Mon – Fri, 8:00 AM – 5:00 PM',
     hours: openDays(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
-    providers: ['khoury', 'jones'],
+    providers: ['khoury'],
     area: 'Spring, The Woodlands, Conroe and north Houston',
     blurb:
-      'Our main office on Interstate 45 is open five days a week, with our full team of providers for consultations, image-guided procedures and follow-up care.',
+      'Our main office on Interstate 45 is open five days a week, with Dr. Khoury and our care team for consultations, image-guided procedures and follow-up care.',
   },
   {
     slug: 'liberty',
@@ -221,28 +220,7 @@ export const team = [
       { label: 'Residency', value: 'Anesthesiology, UT Medical Branch, Galveston' },
       { label: 'Fellowship', value: 'Multidisciplinary Pain Medicine, University of Florida' },
     ],
-    personal: 'Outside the office, Dr. Khoury enjoys time with his wife and two kids, working out, skiing and traveling.',
-  },
-  {
-    slug: 'jones',
-    firstName: 'Dr. Jones',
-    name: 'Amy Jones, MD',
-    role: 'Board-certified primary care sports medicine physician',
-    photo: photo.jones,
-    bio: 'Dr. Jones specializes in non-operative orthopedic care for active people and athletes, from weekend warriors to former pros. She trained at UTMB, where she was chief resident, and completed a sports medicine fellowship at Houston Methodist Willowbrook with a focus on ultrasound-guided diagnosis and procedures.',
-    quote: 'Stay healthy, recover fully and perform at your best.',
-    about: [
-      'Dr. Jones is a board-certified primary care sports medicine physician. She specializes in non-operative orthopedic care and the overall health and performance of active people and athletes, helping them stay healthy, recover fully and perform at their best.',
-      'Her approach is patient-centered, with evidence-based treatments and personalized care for long-term performance and well-being. She has treated athletes at every stage, from Division I players to weekend warriors.',
-    ],
-    focus: ['Non-operative orthopedic care', 'Sports injuries', 'Ultrasound-guided procedures', 'Joint & tendon pain', 'Athlete care'],
-    education: [
-      { label: 'Undergraduate', value: 'B.S. Microbiology, Texas State University' },
-      { label: 'Medical school', value: 'University of Texas Medical Branch (UTMB)' },
-      { label: 'Residency', value: 'Family Medicine, UTMB (Chief Resident)' },
-      { label: 'Fellowship', value: 'Primary Care Sports Medicine, Houston Methodist Willowbrook' },
-    ],
-    personal: 'In her free time she enjoys her husband and two schnauzers, pickleball, their home gym, traveling and Astros games.',
+    personal: 'Outside the office, Dr. Khoury enjoys time with his wife and kids, working out, skiing and traveling.',
   },
   {
     slug: 'worsham',
@@ -564,7 +542,7 @@ const regenerativeContent: ServiceContent = {
   faqs: [
     { q: 'Is PRP covered by insurance?', a: 'Coverage varies and PRP is often not covered. Our team will explain costs before treatment.' },
     { q: 'How many treatments will I need?', a: 'Many people need one to three treatments depending on the problem.' },
-    { q: 'Which joint injection is right for me?', a: 'Dr. Khoury and Dr. Jones look at your imaging, activity level and goals to recommend the best option.' },
+    { q: 'Which joint injection is right for me?', a: 'Dr. Khoury looks at your imaging, activity level and goals to recommend the best option.' },
   ],
 };
 
@@ -734,7 +712,7 @@ export const conditionGroups = [
     overview: 'Arthritis and wear in the knees, hips, shoulders and sacroiliac joints.',
     items: [
       { slug: 'arthritis', title: 'Arthritis', kind: 'Wear and tear', summary: 'Joint inflammation and cartilage wear cause pain and stiffness. Joint injections, gel injections, PRP and RFA can keep you moving.' },
-      { slug: 'joint-pain', title: 'Joint pain (shoulder, hip, knee)', kind: 'Joint', summary: 'Pain from injury, overuse or arthritis in the large joints. Dr. Jones and Dr. Khoury offer image-guided injections and regenerative options.' },
+      { slug: 'joint-pain', title: 'Joint pain (shoulder, hip, knee)', kind: 'Joint', summary: 'Pain from injury, overuse or arthritis in the large joints. Dr. Khoury offers image-guided injections and regenerative options.' },
       { slug: 'sacroiliac-joint-pain', title: 'Sacroiliac joint pain', kind: 'Joint', summary: 'The SI joint links the spine and pelvis and can cause low back and buttock pain. Options include injections, RFA and minimally invasive SI joint fusion.' },
     ],
   },
@@ -829,10 +807,10 @@ export const testimonials = [
       'As soon as Dr. Khoury walked in my prep room his gentle greeting brought me immediately calmness.',
   },
   {
-    name: 'Minnie K.',
-    treatment: 'Patient of Dr. Jones',
+    name: 'Joyce H.',
+    treatment: 'Patient of Dr. Khoury',
     quote:
-      'A very pleasant experience. Dr Jones is quite knowledgeable and approachable, allowing your concerns to be heard and addressed. Highly recommended.',
+      'Dr. Khoury takes time to sit down and listen to you talk and lay out your concerns. I would recommend everyone to go see him.',
   },
   {
     name: 'Patricia G.',
