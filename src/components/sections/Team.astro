@@ -19,9 +19,10 @@ const { full = false } = Astro.props;
       eyebrow="Our team"
       title="Specialists who listen first."
       lede="A board-certified physician and a nurse practitioner working together on one plan for your pain."
+      align="center"
     />
 
-    <ul class="mt-16 grid max-w-4xl gap-6 md:grid-cols-2 lg:gap-8">
+    <ul class="mx-auto mt-16 grid max-w-4xl gap-6 md:grid-cols-2 lg:gap-8">
       {team.map((p, i) => (
         <Reveal client:visible as="li" delay={i * 0.08} className="h-full">
           <article class="card-line group flex h-full flex-col overflow-hidden border border-line bg-porcelain transition-colors duration-500 hover:bg-white">
@@ -41,7 +42,7 @@ const { full = false } = Astro.props;
         </Reveal>
       ))}
     </ul>
-    <div class="mt-12">
+    <div class="mt-12 text-center">
       <Button href="/about">Meet the whole team</Button>
     </div>
   </div>
