@@ -94,17 +94,14 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
     >
       <div className="container-x flex h-20 items-center justify-between gap-6">
         {/* Brand */}
-        <a href="/" aria-label={site.name} className={cn('flex shrink-0 items-center gap-3 whitespace-nowrap leading-none', textColor)}>
-          <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true" className="shrink-0">
-            <path d="M17 2 32 28H2Z" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinejoin="round" />
-            <path d="M17 13l6.4 11H10.6Z" className={onDark ? 'fill-gold-light' : 'fill-gold'} />
-          </svg>
-          <span className="flex flex-col">
-            <span className="display text-[1.35rem] tracking-tight">Advanced Spine &amp; Pain</span>
-            <span className={cn('mt-0.5 text-[0.62rem] font-medium tracking-[0.34em]', onDark ? 'text-gold-light' : 'text-gold')}>
-              SPECIALISTS
-            </span>
-          </span>
+        <a href="/" aria-label={site.name} className="flex shrink-0 items-center">
+          <img
+            src={onDark ? '/images/logo-white.png' : '/images/logo.png'}
+            alt={site.name}
+            width="412"
+            height="120"
+            className="h-11 w-auto sm:h-12"
+          />
         </a>
 
         {/* Desktop nav */}
