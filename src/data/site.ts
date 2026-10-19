@@ -74,6 +74,8 @@ export const images = {
   spineVideo: '/images/advspine/spine-disc.mp4',
   spineVideoPoster: '/images/advspine/spine-disc-poster.jpg',
   consultSeated: photo.consultOffice,
+  /** Dr. Khoury performing an image-guided procedure (Treatments section). */
+  procedure: '/images/advspine/procedure.jpg',
   consultWindow: photo.consultOffice,
   /** Smiling patient for the Patient stories section (Unsplash, free license). */
   happyPatient: '/images/advspine/happy-patient.jpg',
