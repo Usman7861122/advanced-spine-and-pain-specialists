@@ -3,19 +3,25 @@
 import Button from '@components/ui/Button.astro';
 import { site, affiliations } from '@data/site';
 
+interface Props {
+  /** The text appears twice (desktop + mobile, one is hidden). Only one may be a real <h1>. */
+  heading?: 'h1' | 'div';
+}
+const { heading: Heading = 'h1' } = Astro.props;
+
 ---
 
 <p class="eyebrow gold-rule text-gold-light">Interventional pain management</p>
-<h1 class="display mt-5 text-[clamp(2.5rem,3.7vw,3.9rem)] leading-[1.02] text-white">
+<Heading role={Heading === 'div' ? 'heading' : undefined} aria-level={Heading === 'div' ? 1 : undefined} class="display mt-5 text-[clamp(2.5rem,3.7vw,3.9rem)] leading-[1.02] text-white">
   Treat pain at its <em class="font-light italic text-gold-light">source</em>. Get your life back.
-</h1>
+</Heading>
 <p class="mt-6 max-w-md text-[1.05rem] leading-relaxed text-white/75">
   Minimally invasive, board-certified pain care for the neck, back, joints and nerves, delivered with compassion in
   The Woodlands and Liberty, Texas.
 </p>
 <div class="mt-8 flex flex-wrap gap-3">
-  <Button href="/contact" variant="light">Request an appointment</Button>
-  <Button href="/about#khoury" variant="outline-light">Meet Dr. Khoury</Button>
+  <Button href="/contact/" variant="light">Request an appointment</Button>
+  <Button href="/about/#khoury" variant="outline-light">Meet Dr. Khoury</Button>
 </div>
 
 <div class="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-white/15 pt-6">

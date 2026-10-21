@@ -9,7 +9,7 @@ import ServicesGrid from '@components/sections/ServicesGrid.astro';
 import ServiceArea from '@components/ui/ServiceArea.astro';
 import NearYou from '@components/sections/NearYou.astro';
 import { services, site, images, locationsForService, placeNames } from '@data/site';
-import { medicalPageSchema } from '@lib/schema';
+import { medicalPageSchema, metaDescription as describe, titleCase } from '@lib/schema';
 
 export function getStaticPaths() {
   return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
@@ -24,7 +24,7 @@ const others = services.filter((s) => s.slug !== service.slug);
 const locs = locationsForService(service.slug);
 const places = placeNames(locs);
 const placesShort = placeNames(locs, '&');
-const metaDescription = `${service.description} Offered at Advanced Spine and Pain Specialists in ${places}. Call ${site.phone}.`;
+const metaDescription = describe(service.description, places, site.phone);
 const schema = medicalPageSchema({
   name: service.title,
   description: metaDescription,
@@ -36,7 +36,7 @@ const schema = medicalPageSchema({
 
 <PageLayout
   title={service.title}
-  seoTitle={`${service.title} in ${placesShort} | Advanced Spine & Pain Specialists`}
+  seoTitle={`${titleCase(service.title)} in ${placesShort} | Advanced Spine & Pain`}
   description={metaDescription}
   schema={schema}
   eyebrow={`Treatments · ${placesShort}`}
@@ -60,7 +60,7 @@ const schema = medicalPageSchema({
               explain every step before you decide.
             </p>
             <div class="mt-10 flex flex-wrap gap-3">
-              <Button href="/contact">Request an appointment</Button>
+              <Button href="/contact/">Request an appointment</Button>
               <Button href={site.phoneHref} variant="outline">{site.phone}</Button>
             </div>
           </Reveal>
@@ -184,7 +184,7 @@ const schema = medicalPageSchema({
         <p class="text-lg leading-relaxed">
           {service.title} is available at our offices in {places}. Call us to learn whether it is right for you.
         </p>
-        <div class="mt-10"><Button href="/contact">Request an appointment</Button></div>
+        <div class="mt-10"><Button href="/contact/">Request an appointment</Button></div>
       </Container>
     </section>
   )}

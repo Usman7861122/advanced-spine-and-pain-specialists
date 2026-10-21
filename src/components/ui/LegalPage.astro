@@ -1,0 +1,24 @@
+---
+/** Simple text page (privacy policy, accessibility). Each block: heading + paragraphs. */
+import Container from '@components/ui/Container.astro';
+
+interface Props {
+  updated: string;
+  blocks: { h: string; p: string[] }[];
+}
+const { updated, blocks } = Astro.props;
+---
+
+<section class="section-y">
+  <Container class="max-w-3xl">
+    <p class="eyebrow text-mist">Last updated {updated}</p>
+    <div class="mt-8 space-y-10">
+      {blocks.map((b) => (
+        <section>
+          <h2 class="display text-[clamp(1.5rem,2.2vw,1.9rem)] leading-tight text-ink">{b.h}</h2>
+          {b.p.map((t) => <p class="mt-4 text-lg leading-relaxed" set:html={t} />)}
+        </section>
+      ))}
+    </div>
+  </Container>
+</section>

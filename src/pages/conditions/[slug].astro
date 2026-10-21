@@ -7,7 +7,7 @@ import CtaBand from '@components/sections/CtaBand.astro';
 import ServiceArea from '@components/ui/ServiceArea.astro';
 import NearYou from '@components/sections/NearYou.astro';
 import { conditionGroups, images, site, locationsForCondition, placeNames, inSentence } from '@data/site';
-import { medicalPageSchema } from '@lib/schema';
+import { medicalPageSchema, metaDescription as describe, titleCase } from '@lib/schema';
 
 export function getStaticPaths() {
   return conditionGroups.flatMap((g) =>
@@ -22,7 +22,7 @@ const related = group.items.filter((c) => c.slug !== condition.slug);
 const locs = locationsForCondition(condition.slug);
 const places = placeNames(locs);
 const placesShort = placeNames(locs, '&');
-const metaDescription = `${condition.summary} Treated at Advanced Spine and Pain Specialists in ${places}. Call ${site.phone}.`;
+const metaDescription = describe(condition.summary, places, site.phone);
 const schema = medicalPageSchema({
   name: condition.title,
   description: metaDescription,
@@ -34,7 +34,7 @@ const schema = medicalPageSchema({
 
 <PageLayout
   title={condition.title}
-  seoTitle={`${condition.title} Treatment in ${placesShort} | Advanced Spine & Pain Specialists`}
+  seoTitle={`${titleCase(condition.title)} Treatment in ${placesShort} | Advanced Spine & Pain`}
   description={metaDescription}
   schema={schema}
   eyebrow={`${group.title} · ${placesShort}`}
@@ -55,7 +55,7 @@ const schema = medicalPageSchema({
           procedures.
         </p>
         <div class="mt-10 flex flex-wrap gap-3">
-          <Button href="/contact">Request an appointment</Button>
+          <Button href="/contact/">Request an appointment</Button>
           <Button href={site.phoneHref} variant="outline">{site.phone}</Button>
         </div>
       </div>
@@ -65,7 +65,7 @@ const schema = medicalPageSchema({
           <ul class="mt-4 divide-y divide-line border-y border-line">
             {related.map((c) => (
               <li>
-                <a href={`/conditions/${c.slug}`} class="group flex items-center justify-between gap-4 py-4">
+                <a href={`/conditions/${c.slug}/`} class="group flex items-center justify-between gap-4 py-4">
                   <span class="display text-[1.3rem] text-ink transition-colors group-hover:text-gold">{c.title}</span>
                   <span class="text-[0.75rem] uppercase tracking-[0.14em] text-mist">{c.kind}</span>
                 </a>

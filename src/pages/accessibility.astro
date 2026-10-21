@@ -1,0 +1,44 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import LegalPage from '@components/ui/LegalPage.astro';
+import { site } from '@data/site';
+
+const contact = `<a class="font-medium text-ink underline hover:text-gold" href="${site.phoneHref}">${site.phone}</a> or <a class="font-medium text-ink underline hover:text-gold" href="mailto:${site.email}">${site.email}</a>`;
+
+const blocks = [
+  {
+    h: 'Our commitment',
+    p: [
+      `${site.name} wants everyone, including people with disabilities, to be able to use our website and get the information they need about their care.`,
+    ],
+  },
+  {
+    h: 'What we do',
+    p: [
+      'We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1, level AA. The site works with a keyboard, has a “skip to content” link, uses clear headings, gives images text descriptions, keeps text readable against its background and respects the “reduce motion” setting on your device.',
+      'We review the site as we add new pages and fix problems as we find them.',
+    ],
+  },
+  {
+    h: 'Other websites',
+    p: [
+      'Some features, such as the patient portal, maps and downloadable forms, come from other companies. We cannot fully control how accessible they are, but we are happy to help you another way.',
+    ],
+  },
+  {
+    h: 'Need help or found a problem?',
+    p: [
+      `If any part of this website is hard for you to use, please call us at ${contact}. Tell us the page and the problem, and we will help you get the information or service you need and work to fix the issue.`,
+    ],
+  },
+];
+---
+
+<PageLayout
+  title="Accessibility"
+  eyebrow="Accessibility"
+  lede="Our website should work for everyone."
+  description={`Accessibility statement for the ${site.name} website.`}
+>
+  <LegalPage updated="October 21, 2026" blocks={blocks} />
+</PageLayout>

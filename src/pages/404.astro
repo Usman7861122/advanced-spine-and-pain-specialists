@@ -2,10 +2,36 @@
 import PageLayout from '@layouts/PageLayout.astro';
 import Container from '@components/ui/Container.astro';
 import Button from '@components/ui/Button.astro';
+import { site } from '@data/site';
+
+const links = [
+  { label: 'Treatments', href: '/services/' },
+  { label: 'Conditions we treat', href: '/conditions/' },
+  { label: 'Our offices', href: '/locations/' },
+  { label: 'Patient reviews', href: '/testimonials/' },
+];
 ---
 
-<PageLayout title="Page not found" eyebrow="404" lede="Sorry, we couldn’t find that page.">
+<PageLayout
+  title="Page not found"
+  eyebrow="404"
+  lede="Sorry, we couldn’t find that page. It may have moved when we updated our website."
+  noindex
+>
   <section class="section-y">
-    <Container><Button href="/">Back home</Button></Container>
+    <Container>
+      <div class="flex flex-wrap gap-3">
+        <Button href="/">Back home</Button>
+        <Button href="/contact/" variant="outline">Contact us</Button>
+      </div>
+      <ul class="mt-10 grid gap-3 sm:grid-cols-2 lg:max-w-2xl">
+        {links.map((l) => (
+          <li><a href={l.href} class="link-underline text-lg text-ink hover:text-gold">{l.label}</a></li>
+        ))}
+      </ul>
+      <p class="mt-10 text-[0.95rem]">
+        Need help now? Call us at <a href={site.phoneHref} class="font-medium text-ink hover:text-gold">{site.phone}</a>.
+      </p>
+    </Container>
   </section>
 </PageLayout>

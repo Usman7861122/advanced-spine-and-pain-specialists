@@ -15,7 +15,7 @@ import { services, images } from '@data/site';
         title="Minimally invasive care that targets the source."
         lede="From a first visit through follow-up, every plan starts with the least invasive treatment likely to work for you."
       />
-      <Button href="/services" variant="outline-light" class="shrink-0">All treatments</Button>
+      <Button href="/services/" variant="outline-light" class="shrink-0">All treatments</Button>
     </div>
 
     <div class="mt-16 grid gap-6 lg:grid-cols-12 lg:gap-8">
@@ -40,7 +40,7 @@ import { services, images } from '@data/site';
       {services.map((s, i) => (
         <Reveal client:visible as="li" delay={(i % 2) * 0.08} className="bg-ink">
           <a
-            href={`/services/${s.slug}`}
+            href={`/services/${s.slug}/`}
             class="spot card-line group flex h-full flex-col justify-between p-8 transition-colors duration-300 hover:bg-ink-soft md:p-10"
           >
             <div>

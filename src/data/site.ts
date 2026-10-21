@@ -182,7 +182,7 @@ export const site = {
   role: 'Interventional Pain Management · The Woodlands & Liberty, TX',
   tagline: 'Treat pain at its source',
   description:
-    'Advanced Spine and Pain Specialists is an interventional pain management practice in The Woodlands and Liberty, Texas, led by board-certified anesthesiologist and pain specialist Dr. Andrew M. Khoury.',
+    'Board-certified interventional pain management in The Woodlands and Liberty, TX. Dr. Andrew M. Khoury treats back, neck, joint and nerve pain at its source.',
   phone: '281-868-7246',
   phoneHref: 'tel:+12818687246',
   email: 'info@advspine.org',
@@ -195,9 +195,10 @@ export const site = {
     { label: 'Medical records release form', url: 'https://sa1s3.patientpop.com/assets/docs/416801.pdf' },
   ],
   social: {
-    instagram: '#',
-    facebook: '#',
-    linkedin: '#',
+    /** Leave empty ('') to hide an icon. */
+    instagram: '',
+    facebook: 'https://www.facebook.com/advspine/',
+    linkedin: '',
   },
 };
 
@@ -838,7 +839,19 @@ export const testimonials = [
   },
 ];
 
-export const posts = [
+/** One part of a blog article: optional heading, paragraphs, optional bullet list. */
+type PostBlock = { h?: string; p: string[]; list?: string[] };
+
+export const posts: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  category: string;
+  image: string;
+  body: PostBlock[];
+}[] = [
   {
     slug: 'spinal-cord-stimulation-trial',
     title: 'Spinal cord stimulation: why you get to try it before you commit',
@@ -848,6 +861,42 @@ export const posts = [
     readTime: '5 min read',
     category: 'Treatments',
     image: photo.xray,
+    body: [
+      {
+        p: [
+          'Spinal cord stimulation (SCS) is one of the few pain treatments you can test drive. Before anything is placed for good, you wear a temporary system for about a week and see, in your own daily life, how much it helps.',
+        ],
+      },
+      {
+        h: 'What a spinal cord stimulator does',
+        p: [
+          'A stimulator sends gentle electrical pulses to the nerves in your spine. The pulses change how pain signals travel to the brain, so you feel less pain. Many newer systems give relief without any tingling at all.',
+          'It is most often used for nerve pain that has not improved with other care, such as pain that continues after back surgery, nerve pain in the legs, painful diabetic neuropathy and CRPS.',
+        ],
+      },
+      {
+        h: 'How the trial works',
+        p: [
+          'The trial is a short outpatient procedure. Using X-ray guidance, Dr. Khoury places one or two thin, flexible wires (called leads) through a needle into the space near the spinal cord. There is no large cut. The leads connect to a small battery that you wear on your belt.',
+          'You go home the same day and live your normal routine for about five to seven days. We ask you to keep track of your pain, your sleep and the things you are able to do, like walking, standing or doing chores.',
+          'During the trial, avoid heavy lifting, bending and twisting, and keep the bandage dry. A short visit at the end of the week removes the leads in the office. It takes only a few minutes.',
+        ],
+      },
+      {
+        h: 'Deciding on a permanent system',
+        p: [
+          'If the trial gives you good relief (most programs look for at least half of your pain to go away) and you are moving better, you can choose a permanent stimulator. The battery is placed under the skin, usually in the lower back or buttock, during a short outpatient procedure.',
+          'If the trial does not help enough, nothing permanent was done and we talk about other options. That is the whole point of trying first.',
+        ],
+      },
+      {
+        h: 'Getting ready',
+        p: [
+          'Most insurance plans need a few steps before a trial, such as recent imaging and a short visit with a pain psychologist. Our team helps you with this paperwork.',
+          'If you live with nerve pain that has not responded to other treatment, ask us whether a stimulator trial makes sense for you. We see patients in The Woodlands and Liberty, Texas.',
+        ],
+      },
+    ],
   },
   {
     slug: 'sciatica-relief-the-woodlands-tx',
@@ -858,6 +907,49 @@ export const posts = [
     readTime: '4 min read',
     category: 'Conditions',
     image: photo.bannerBack,
+    body: [
+      {
+        p: [
+          'Sciatica is pain that starts in the lower back or buttock and shoots down one leg, sometimes all the way to the foot. It can feel sharp, burning or electric, and it may come with numbness, tingling or weakness.',
+        ],
+      },
+      {
+        h: 'What causes it',
+        p: [
+          'Sciatica happens when a nerve root in the lower back is squeezed or irritated. The most common cause is a herniated (bulging) disc. Spinal stenosis, which is narrowing of the spinal canal, and arthritis of the spine are other common causes.',
+        ],
+      },
+      {
+        h: 'Get help right away if you have these signs',
+        p: [
+          'Go to the emergency room if leg pain comes with loss of bladder or bowel control, numbness in the groin or inner thighs, or leg weakness that is getting worse quickly. These signs can mean a nerve is badly pinched and needs urgent care.',
+        ],
+      },
+      {
+        h: 'What to try first',
+        p: [
+          'The good news: most sciatica gets better on its own within a few weeks. Stay gently active, since short walks are better than bed rest. Heat or ice, over-the-counter pain relievers (if they are safe for you) and physical therapy can all help while the nerve calms down.',
+        ],
+      },
+      {
+        h: 'When to see a pain specialist',
+        p: [
+          'Make an appointment if the pain lasts longer than about six weeks, keeps you from sleeping or working, or keeps coming back. A pain specialist can find exactly which nerve is irritated and why.',
+          'At Advanced Spine and Pain Specialists, Dr. Khoury starts with a careful exam and a review of your imaging. Common treatments include:',
+        ],
+        list: [
+          'Epidural steroid injections, which place anti-inflammatory medicine right next to the irritated nerve using X-ray guidance',
+          'Selective nerve root blocks, which can both relieve pain and confirm which nerve is the source',
+          'Spinal cord stimulation for leg pain that continues after other treatment or after surgery',
+        ],
+      },
+      {
+        h: 'Sciatica care near you',
+        p: [
+          'Most patients never need surgery. If you live in The Woodlands, Spring, Conroe or north Houston, our main office on Interstate 45 is open Monday to Friday. Patients east of Houston can see Dr. Khoury at our Liberty office on Tuesdays.',
+        ],
+      },
+    ],
   },
   {
     slug: 'mild-procedure-spinal-stenosis',
@@ -868,19 +960,53 @@ export const posts = [
     readTime: '6 min read',
     category: 'Procedures',
     image: photo.spineModel,
+    body: [
+      {
+        p: [
+          'If your legs ache, feel heavy or go numb when you stand or walk, and the feeling eases when you sit down or lean forward on a shopping cart, you may have lumbar spinal stenosis.',
+        ],
+      },
+      {
+        h: 'What is lumbar spinal stenosis?',
+        p: [
+          'Spinal stenosis is a narrowing of the canal that holds the nerves in your lower back. As we age, a ligament inside the canal, called the ligamentum flavum, can thicken and press on the nerves. That pressure causes pain, numbness and weakness in the legs, and it often gets worse the longer you stand or walk.',
+        ],
+      },
+      {
+        h: 'What the MILD® procedure does',
+        p: [
+          'MILD stands for minimally invasive lumbar decompression. Through a tiny opening about the size of a baby aspirin, Dr. Khoury uses X-ray guidance and special small tools to remove bits of the thickened ligament. This makes more room for the nerves.',
+          'Nothing is left behind in your body. There is no implant, no general anesthesia and no stitches, only a small bandage.',
+        ],
+      },
+      {
+        h: 'What to expect',
+        p: [
+          'MILD is an outpatient procedure that usually takes under an hour. You get local numbing medicine and light sedation, and most people go home the same day. Many patients are back to light activity within a day or two.',
+          'The goal is to help you stand and walk longer with less leg pain, so you can get back to things like shopping, yard work and time with family.',
+        ],
+      },
+      {
+        h: 'Is MILD right for you?',
+        p: [
+          'MILD is meant for people with lumbar spinal stenosis caused mostly by a thickened ligament who have not improved enough with physical therapy, medicines or injections. An MRI or CT scan shows whether you are a good match. Medicare and many other plans cover the procedure for patients who qualify.',
+          'Dr. Khoury will review your imaging and talk you through all of your options, including epidural steroid injections and spinal cord stimulation. Request an appointment at our office in The Woodlands or Liberty, Texas.',
+        ],
+      },
+    ],
   },
 ];
 
 /** Header navigation. `mega` names the mega menu an item opens. */
 export const nav: { label: string; href: string; mega?: 'services' | 'conditions' | 'locations' }[] = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Treatments', href: '/services', mega: 'services' },
-  { label: 'Conditions', href: '/conditions', mega: 'conditions' },
-  { label: 'Locations', href: '/locations', mega: 'locations' },
-  { label: 'Testimonials', href: '/testimonials' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'About', href: '/about/' },
+  { label: 'Treatments', href: '/services/', mega: 'services' },
+  { label: 'Conditions', href: '/conditions/', mega: 'conditions' },
+  { label: 'Locations', href: '/locations/', mega: 'locations' },
+  { label: 'Testimonials', href: '/testimonials/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Contact', href: '/contact/' },
 ];
 
 /** Sections tracked by the "spine rail" on the home page (in page order). */

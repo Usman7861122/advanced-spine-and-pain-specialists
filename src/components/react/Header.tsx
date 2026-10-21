@@ -155,7 +155,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
             {site.phone}
           </a>
           <a
-            href="/contact"
+            href="/contact/"
             className={cn(
               'hover-lift inline-flex h-11 items-center whitespace-nowrap rounded-full px-6 text-[0.85rem] font-medium tracking-wide transition-colors',
               onDark ? 'bg-white text-ink hover:bg-gold-light' : 'bg-ink text-white hover:bg-gold',
@@ -231,7 +231,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
                       <ul className="pb-4 space-y-1">
                         {services.map((s) => (
                           <li key={s.slug}>
-                            <a href={`/services/${s.slug}`} className="block py-2.5 text-[0.95rem] text-slate hover:text-ink">
+                            <a href={`/services/${s.slug}/`} className="block py-2.5 text-[0.95rem] text-slate hover:text-ink">
                               {s.title}
                             </a>
                           </li>
@@ -242,14 +242,14 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
                       <ul className="pb-4 space-y-1">
                         {locations.map((l) => (
                           <li key={l.slug}>
-                            <a href={`/locations/${l.slug}`} className="block py-2.5">
+                            <a href={`/locations/${l.slug}/`} className="block py-2.5">
                               <span className="block text-[0.95rem] text-ink">{l.name}, TX</span>
                               <span className="block text-[0.8rem] text-mist">{l.hoursSummary}</span>
                             </a>
                           </li>
                         ))}
                         <li>
-                          <a href="/locations" className="block py-2.5 text-[0.9rem] font-medium text-gold">
+                          <a href="/locations/" className="block py-2.5 text-[0.9rem] font-medium text-gold">
                             All locations
                           </a>
                         </li>
@@ -264,7 +264,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
                               {g.items.map((c) => (
                                 <li key={c.slug}>
                                   <a
-                                    href={`/conditions/${c.slug}`}
+                                    href={`/conditions/${c.slug}/`}
                                     className="block py-2 text-[0.95rem] text-slate hover:text-ink"
                                   >
                                     {c.title}
@@ -290,7 +290,7 @@ export default function Header({ mode: initialMode = 'solid' }: Props) {
               )}
               <div className="mt-8 flex flex-col gap-3">
                 <a
-                  href="/contact"
+                  href="/contact/"
                   className="inline-flex h-12 items-center justify-center rounded-full bg-ink px-6 text-sm font-medium text-white"
                 >
                   Request an appointment
@@ -331,7 +331,7 @@ function ServicesMega() {
       <MegaIntro
         eyebrow="Treatments"
         title="Minimally invasive care for the spine, joints and nerves."
-        href="/services"
+        href="/services/"
         linkLabel="View all treatments"
       />
       <ul className="col-span-6 grid grid-cols-2 gap-x-10 gap-y-2">
@@ -342,7 +342,7 @@ function ServicesMega() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease, delay: 0.05 + i * 0.04 }}
           >
-            <a href={`/services/${s.slug}`} className="group block rounded-lg px-3 py-3 -mx-3 transition-colors hover:bg-bone">
+            <a href={`/services/${s.slug}/`} className="group block rounded-lg px-3 py-3 -mx-3 transition-colors hover:bg-bone">
               <span className="block text-[0.95rem] font-medium text-ink group-hover:text-gold transition-colors">
                 {s.title}
               </span>
@@ -356,7 +356,7 @@ function ServicesMega() {
         <ul className="mt-4 space-y-2">
           {featuredConditions.map((c) => (
             <li key={c.slug}>
-              <a href={`/conditions/${c.slug}`} className="text-[0.9rem] text-slate hover:text-ink transition-colors">
+              <a href={`/conditions/${c.slug}/`} className="text-[0.9rem] text-slate hover:text-ink transition-colors">
                 {c.title}
               </a>
             </li>
@@ -380,7 +380,7 @@ function ConditionsMega() {
       <MegaIntro
         eyebrow="Conditions we treat"
         title="From back pain and sciatica to migraines and neuropathy."
-        href="/conditions"
+        href="/conditions/"
         linkLabel="View all conditions"
       />
       <div className="col-span-9 grid grid-cols-4 gap-x-8">
@@ -399,7 +399,7 @@ function ConditionsMega() {
                   {g.items.map((c) => (
                     <li key={c.slug}>
                       <a
-                        href={`/conditions/${c.slug}`}
+                        href={`/conditions/${c.slug}/`}
                         className="block rounded px-2 py-1.5 -mx-2 text-[0.88rem] leading-snug text-slate transition-colors hover:bg-bone hover:text-ink"
                       >
                         {c.title}
@@ -422,7 +422,7 @@ function LocationsMega() {
       <MegaIntro
         eyebrow="Locations"
         title="Two offices north and east of Houston."
-        href="/locations"
+        href="/locations/"
         linkLabel="View all locations"
       />
       <ul className="col-span-6 grid grid-cols-2 gap-6">
@@ -434,7 +434,7 @@ function LocationsMega() {
             transition={{ duration: 0.35, ease, delay: 0.05 + i * 0.06 }}
           >
             <a
-              href={`/locations/${l.slug}`}
+              href={`/locations/${l.slug}/`}
               className="group block h-full rounded-lg border border-line bg-white p-6 transition-colors hover:border-gold"
             >
               <span className="eyebrow text-gold">Office</span>
@@ -460,7 +460,7 @@ function LocationsMega() {
         <a href={site.phoneHref} className="display mt-4 block text-[1.6rem] text-ink hover:text-gold transition-colors">
           {site.phone}
         </a>
-        <a href="/contact" className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-gold">
+        <a href="/contact/" className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-gold">
           Request an appointment
           <Arrow />
         </a>

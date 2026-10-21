@@ -39,7 +39,7 @@ const places = placeNames(locations);
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a
-              href="/contact"
+              href="/contact/"
               class="hover-lift inline-flex h-12 items-center rounded-full bg-ink px-7 text-[0.875rem] font-medium text-white transition-colors hover:bg-gold"
             >
               Request an appointment
@@ -58,7 +58,7 @@ const places = placeNames(locations);
             const people = l.providers.map((s) => team.find((p) => p.slug === s)).filter(Boolean) as typeof team;
             return (
               <li>
-                <a href={`/locations/${l.slug}`} class="card-line hover-lift group flex h-full flex-col border border-line bg-white p-7">
+                <a href={`/locations/${l.slug}/`} class="card-line hover-lift group flex h-full flex-col border border-line bg-white p-7">
                   <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-gold-light">
                     <Icon name="pin" class="h-4.5 w-4.5" />
                   </span>

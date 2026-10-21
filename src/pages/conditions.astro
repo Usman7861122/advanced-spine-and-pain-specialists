@@ -11,8 +11,8 @@ const total = conditionGroups.reduce((n, g) => n + g.items.length, 0);
 
 <BaseLayout
   title="Conditions we treat"
-  seoTitle="Pain Conditions We Treat in The Woodlands & Liberty, TX | Advanced Spine & Pain Specialists"
-  description="Pain conditions treated at Advanced Spine and Pain Specialists in The Woodlands and Liberty, TX."
+  seoTitle="Pain Conditions We Treat in The Woodlands & Liberty, TX | Advanced Spine & Pain"
+  description="Back, neck, nerve, joint and headache pain treated by Dr. Andrew Khoury at Advanced Spine and Pain Specialists in The Woodlands and Liberty, TX."
   transparentHeader
 >
   <PageHero
@@ -59,7 +59,7 @@ const total = conditionGroups.reduce((n, g) => n + g.items.length, 0);
             {g.items.map((c) => (
               <li>
                 <a
-                  href={`/conditions/${c.slug}`}
+                  href={`/conditions/${c.slug}/`}
                   class="group grid items-center gap-2 py-5 transition-[padding] duration-500 ease-[var(--ease-out-soft)] hover:pl-3 sm:grid-cols-[1fr_auto_auto] sm:gap-8"
                 >
                   <span class:list={['display text-[1.4rem] leading-snug transition-colors', dark ? 'text-white group-hover:text-gold-light' : 'text-ink group-hover:text-gold']}>
@@ -88,7 +88,7 @@ const total = conditionGroups.reduce((n, g) => n + g.items.length, 0);
         <p class="display mt-3 max-w-xl text-display-sm text-ink">Describe the pain. We will help you name it.</p>
       </div>
       <div class="flex flex-wrap gap-3">
-        <Button href="/contact">Request an appointment</Button>
+        <Button href="/contact/">Request an appointment</Button>
         <Button href={site.phoneHref} variant="outline">{site.phone}</Button>
       </div>
     </Container>

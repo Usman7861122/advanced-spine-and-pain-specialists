@@ -21,7 +21,7 @@ const { locations, label = 'Available in' } = Astro.props;
         <>
           {i > 0 && <span class="text-white/40">&amp;</span>}
           <a
-            href={`/locations/${l.slug}`}
+            href={`/locations/${l.slug}/`}
             class="rounded-full border border-white/25 px-3.5 py-1 text-white transition-colors hover:border-gold-light hover:text-gold-light"
           >
             {l.name}, TX

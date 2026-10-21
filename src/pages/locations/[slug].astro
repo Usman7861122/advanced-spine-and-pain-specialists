@@ -68,7 +68,7 @@ const openDays = loc.hours.filter((h) => h.hours !== 'Closed').length;
         </ul>
 
         <div class="mt-8 flex flex-wrap gap-3">
-          <Button href="/contact">Request an appointment</Button>
+          <Button href="/contact/">Request an appointment</Button>
           <Button href={loc.mapsUrl} variant="outline">Get directions</Button>
         </div>
       </div>
@@ -123,10 +123,10 @@ const openDays = loc.hours.filter((h) => h.hours !== 'Closed').length;
                 <p class="eyebrow mt-3 leading-relaxed text-gold">{p.role}</p>
                 <p class="mt-4 line-clamp-4 text-[0.95rem] leading-relaxed">{p.bio}</p>
                 <div class="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-6 text-sm font-medium">
-                  <a href={`/about#${p.slug}`} class="inline-flex items-center gap-2 text-ink transition-colors hover:text-gold">
+                  <a href={`/about/#${p.slug}`} class="inline-flex items-center gap-2 text-ink transition-colors hover:text-gold">
                     Full profile <Icon name="arrow" class="h-4 w-4" />
                   </a>
-                  <a href="/contact" class="inline-flex items-center gap-2 text-ink transition-colors hover:text-gold">
+                  <a href="/contact/" class="inline-flex items-center gap-2 text-ink transition-colors hover:text-gold">
                     Book with {p.firstName} <Icon name="arrow" class="h-4 w-4" />
                   </a>
                 </div>
@@ -147,7 +147,7 @@ const openDays = loc.hours.filter((h) => h.hours !== 'Closed').length;
   />
   <div class="bg-bone/60 pb-20 md:pb-28">
     <Container>
-      <Button href="/services#all-treatments" variant="outline">See all treatments</Button>
+      <Button href="/services/#all-treatments" variant="outline">See all treatments</Button>
     </Container>
   </div>
 
@@ -166,7 +166,7 @@ const openDays = loc.hours.filter((h) => h.hours !== 'Closed').length;
               {g.items.map((c) => (
                 <li>
                   <a
-                    href={`/conditions/${c.slug}`}
+                    href={`/conditions/${c.slug}/`}
                     class="inline-flex min-h-10 items-center rounded-full border border-white/20 px-4 py-2 text-[0.88rem] text-white/85 transition-colors hover:border-gold-light hover:text-white"
                   >
                     {c.title}
@@ -192,7 +192,7 @@ const openDays = loc.hours.filter((h) => h.hours !== 'Closed').length;
       <ul class="grid gap-4">
         {others.map((o) => (
           <li>
-            <a href={`/locations/${o.slug}`} class="card-line hover-lift group flex items-center justify-between gap-6 border border-line bg-white p-6">
+            <a href={`/locations/${o.slug}/`} class="card-line hover-lift group flex items-center justify-between gap-6 border border-line bg-white p-6">
               <span>
                 <span class="display block text-[1.6rem] text-ink group-hover:text-gold transition-colors">{o.name}, TX</span>
                 <span class="mt-1 block text-[0.88rem] text-slate">{o.line1}, {o.line2}</span>

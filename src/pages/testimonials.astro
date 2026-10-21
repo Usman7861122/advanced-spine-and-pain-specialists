@@ -24,8 +24,8 @@ const filters = [
 
 <PageLayout
   title="Patient Reviews"
-  seoTitle={`Patient Reviews | ${site.name}, The Woodlands & Liberty, TX`}
-  description={`Rated ${site.rating.score} out of 5 from ${site.rating.count} patient reviews. Read what patients say about Dr. Khoury and Advanced Spine and Pain Specialists in The Woodlands and Liberty, TX.`}
+  seoTitle={`Patient Reviews | ${site.name}`}
+  description={`Rated ${site.rating.score} out of 5 from ${site.rating.count} patient reviews. Read what patients say about Dr. Khoury in The Woodlands and Liberty, TX.`}
   eyebrow="Testimonials"
   lede={`Rated ${site.rating.score} out of 5 from ${site.rating.count} patient reviews. Here is what our patients say about their care.`}
   image={images.happyPatient}
@@ -115,7 +115,7 @@ const filters = [
         </p>
       </div>
       <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
-        <Button href="/contact" variant="light" size="lg">Request an appointment</Button>
+        <Button href="/contact/" variant="light" size="lg">Request an appointment</Button>
         <Button href={site.phoneHref} variant="outline-light" size="lg">{site.phone}</Button>
       </div>
     </Container>

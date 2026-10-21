@@ -16,7 +16,7 @@ const quickLinks = nav.filter((n) => !n.mega);
       </div>
       <div class="flex flex-wrap gap-3">
         <a
-          href="/contact"
+          href="/contact/"
           class="hover-lift inline-flex h-12 items-center rounded-full bg-white px-7 text-sm font-medium text-ink transition-colors hover:bg-gold-light"
         >
           Request an appointment
@@ -50,7 +50,8 @@ const quickLinks = nav.filter((n) => !n.mega);
         ))}
       </div>
       <div class="mt-6 flex gap-3">
-        <a href={site.social.instagram} aria-label="Instagram" class="footer-social hover-lift">
+        {site.social.instagram && (
+        <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram (opens in a new tab)" class="footer-social hover-lift">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
             ><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle
               cx="17.5"
@@ -61,16 +62,21 @@ const quickLinks = nav.filter((n) => !n.mega);
             /></svg
           >
         </a>
-        <a href={site.social.facebook} aria-label="Facebook" class="footer-social hover-lift">
+        )}
+        {site.social.facebook && (
+        <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook (opens in a new tab)" class="footer-social hover-lift">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
             ><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z" /></svg
           >
         </a>
-        <a href={site.social.linkedin} aria-label="LinkedIn" class="footer-social hover-lift">
+        )}
+        {site.social.linkedin && (
+        <a href={site.social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)" class="footer-social hover-lift">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
             ><path d="M6 9v12M6 4v1M10 21v-7a3 3 0 0 1 6 0v7M10 9v12M16 9a5 5 0 0 1 4 5v7" /></svg
           >
         </a>
+        )}
       </div>
     </div>
 
@@ -87,7 +93,7 @@ const quickLinks = nav.filter((n) => !n.mega);
       <p class="eyebrow text-white/40">Treatments</p>
       <ul class="mt-5 space-y-3">
         {services.map((s) => (
-          <li><a href={`/services/${s.slug}`} class="footer-link link-underline">{s.title}</a></li>
+          <li><a href={`/services/${s.slug}/`} class="footer-link link-underline">{s.title}</a></li>
         ))}
       </ul>
     </div>
@@ -96,7 +102,7 @@ const quickLinks = nav.filter((n) => !n.mega);
       <p class="eyebrow text-white/40">Visit</p>
       <address class="mt-5 not-italic text-[0.95rem] leading-relaxed text-white/70">
         {locations.map((l) => (
-          <a href={`/locations/${l.slug}`} class="footer-link mb-4 block">
+          <a href={`/locations/${l.slug}/`} class="footer-link mb-4 block">
             <span class="block text-white">{l.name}</span>
             {l.line1}<br />{l.line2}
           </a>
@@ -117,8 +123,8 @@ const quickLinks = nav.filter((n) => !n.mega);
     <div class="container-x flex flex-col gap-3 py-6 text-[0.8rem] text-white/40 md:flex-row md:items-center md:justify-between">
       <p>© {year} {site.name}. All rights reserved.</p>
       <div class="flex gap-6">
-        <a href="/privacy" class="hover:text-white transition-colors">Privacy policy</a>
-        <a href="/accessibility" class="hover:text-white transition-colors">Accessibility</a>
+        <a href="/privacy/" class="hover:text-white transition-colors">Privacy policy</a>
+        <a href="/accessibility/" class="hover:text-white transition-colors">Accessibility</a>
       </div>
     </div>
   </div>

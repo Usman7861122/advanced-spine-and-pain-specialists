@@ -39,7 +39,7 @@ const list = services.filter((s) => s.slug !== exclude && (!only || only.include
       {list.map((s, i) => (
         <Reveal client:visible as="li" delay={(i % 3) * 0.08}>
           <a
-            href={`/services/${s.slug}`}
+            href={`/services/${s.slug}/`}
             class="cell group relative isolate flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-sm bg-ink p-8 text-white sm:aspect-[3/4] lg:aspect-[4/5]"
           >
             <img
