@@ -38,7 +38,7 @@ import { locations, team, site } from '@data/site';
               <div class="mt-6 flex items-center gap-3 border-t border-line pt-6">
                 <div class="flex -space-x-3">
                   {people.map((p) => (
-                    <img src={p.photo} alt="" loading="lazy" class="h-11 w-11 rounded-full border-2 border-white object-cover object-top" />
+                    <img src={p.photo} alt={p.name} loading="lazy" class="h-11 w-11 rounded-full border-2 border-white object-cover object-top" />
                   ))}
                 </div>
                 <p class="text-[0.85rem] leading-snug text-slate">

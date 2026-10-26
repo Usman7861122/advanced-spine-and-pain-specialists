@@ -1024,3 +1024,44 @@ export const homeSections = [
   { id: 'blog', label: 'Blog' },
   { id: 'contact', label: 'Contact' },
 ];
+
+/**
+ * Alt text for every site photo (by file name). Used wherever a photo has no alt of its own,
+ * so search engines and screen readers always get a description.
+ */
+export const imageAlts: Record<string, string> = {
+  'bannerBack.jpg': 'Illustration of lower back pain in the lumbar spine',
+  'bannerKnee.jpg': 'Illustration of knee joint pain',
+  'bannerNeck.jpg': 'Illustration of neck pain in the cervical spine',
+  'bannerWrist.jpg': 'Illustration of wrist and hand pain',
+  'best2024.jpg': 'Houston Chronicle Best of the Best 2024 Finalist',
+  'best2025.jpg': 'Houston Chronicle Best of the Best 2025',
+  'comfort.jpg': 'Provider comforting a patient by holding her hand',
+  'consultNotes.jpg': 'Doctor discussing treatment with a patient at her desk',
+  'consultOffice.jpg': 'Doctor explaining a pain treatment plan to a patient',
+  'consultSmile.jpg': 'Smiling provider reviewing results with a patient',
+  'consultWoman.jpg': 'Doctor meeting with a patient for a pain consultation',
+  'handPain.jpg': 'Woman holding her painful wrist and hand',
+  'happy-patient.jpg': 'Smiling, happy patient',
+  'headache.jpg': 'Man with a headache holding his temples',
+  'khoury.jpg': 'Dr. Andrew M. Khoury, MD, pain management specialist',
+  'khouryWorsham.jpg': 'Dr. Andrew Khoury and Amanda Worsham, FNP-C',
+  'kneeBrace.jpg': 'Active woman wearing a knee brace',
+  'legExam.jpg': 'Provider examining a patient’s knee and leg',
+  'neckBack.jpg': 'Woman holding her neck and upper back in pain',
+  'neckGlow.jpg': 'Neck pain shown glowing on the back of the neck',
+  'neckTouch.jpg': 'Woman rubbing a stiff, painful neck',
+  'procedure.jpg': 'Dr. Khoury performing an X-ray guided spine procedure',
+  'spineModel.jpg': 'Model of the lumbar spine showing the discs',
+  'stretch.jpg': 'Patient doing a guided stretch for back pain',
+  'tablet.jpg': 'Provider reviewing patient information on a tablet',
+  'waitingRoom.jpg': 'Calm, modern clinic waiting room',
+  'worsham.jpg': 'Amanda Worsham, FNP-C, nurse practitioner',
+  'xray.jpg': 'X-ray of the neck and upper spine',
+  'spine-disc-poster.jpg': 'Model of the spine showing a herniated disc',
+  'hero-main.jpg': 'Dr. Andrew M. Khoury and Amanda Worsham, FNP-C',
+};
+
+/** Alt text for a photo path, e.g. "/images/advspine/xray.jpg". */
+export const altFor = (src?: string, fallback = site.name) =>
+  (src && imageAlts[src.split('/').pop()!.split('?')[0]]) || fallback;

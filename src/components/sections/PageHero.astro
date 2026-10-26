@@ -3,6 +3,7 @@
  * Dark title band for inner pages. Optional photo behind a navy veil.
  */
 import Container from '@components/ui/Container.astro';
+import { altFor } from '@data/site';
 
 interface Props {
   title: string;
@@ -21,7 +22,7 @@ const { title, eyebrow, lede, image, imageAlt = '', position = 'center 30%' } = 
     <>
       <img
         src={image}
-        alt={imageAlt}
+        alt={imageAlt || altFor(image)}
         loading="eager"
         decoding="async"
         style={`object-position:${position}`}

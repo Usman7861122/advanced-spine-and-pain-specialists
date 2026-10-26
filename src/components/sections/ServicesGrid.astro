@@ -6,7 +6,7 @@
 import Reveal from '@components/react/Reveal';
 import Container from '@components/ui/Container.astro';
 import Icon from '@components/ui/Icon.astro';
-import { services } from '@data/site';
+import { services, altFor } from '@data/site';
 
 interface Props {
   eyebrow?: string;
@@ -44,7 +44,7 @@ const list = services.filter((s) => s.slug !== exclude && (!only || only.include
           >
             <img
               src={s.image}
-              alt=""
+              alt={altFor(s.image, s.title)}
               loading="lazy"
               decoding="async"
               class="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.05]"

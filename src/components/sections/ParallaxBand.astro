@@ -24,7 +24,7 @@ const { src, alt, eyebrow, title, text, cta, stats = [], position = 'center 40%'
 <section id="legacy" data-dark class="band relative isolate min-h-[85vh] text-white">
   <!-- Fixed photo, clipped to the section -->
   <div class="band-bg" aria-hidden="true">
-    <img src={src} alt="" loading="lazy" decoding="async" style={`object-position:${position}`} />
+    <img src={src} alt={alt} loading="lazy" decoding="async" style={`object-position:${position}`} />
     <div class="band-veil"></div>
   </div>
   <span class="sr-only">{alt}</span>
