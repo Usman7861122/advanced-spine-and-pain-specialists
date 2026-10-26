@@ -55,6 +55,8 @@ const pageTitle = seoTitle ? seoTitle : title ? `${title} | ${site.name}` : `${s
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content="#0b1d42" />
+    <!-- Google Search Console ownership check -->
+    <meta name="google-site-verification" content="gDEKHvQ8_ctPYUEGP_5cfM8vViFHd288huLFZ3jI5AY" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
