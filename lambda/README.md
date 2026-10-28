@@ -13,5 +13,5 @@ The "Request an appointment" form posts to an AWS Lambda Function URL, which ema
 
 To change the code: edit `contact/index.mjs`, then paste it into the Lambda console code editor and click Deploy.
 
-Spam protection: hidden `website` field (bots fill it, the request is dropped), origin check, input validation.
+Spam protection: origin check, hidden `website` trap field (bots fill it in), minimum fill time of 3 seconds (`elapsed`, measured in the browser), input validation. Blocked requests get a fake "ok" and send nothing.
 Privacy: the visitor's details are never written to CloudWatch logs.

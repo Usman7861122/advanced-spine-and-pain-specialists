@@ -13,6 +13,7 @@
  *   ALLOWED_ORIGINS  (optional) extra site addresses to allow, comma separated, no trailing slash
  *
  * The function role needs ses:SendEmail (see lambda/README.md).
+ * Spam protection: origin check, hidden trap field ("website"), and a minimum fill time ("elapsed", 3 seconds).
  * Privacy: the visitor's details and message are never written to the logs.
  */
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
@@ -34,6 +35,9 @@ const CLINIC = {
   ],
   site: 'https://www.advspine.org',
 };
+
+/** Fastest a real person can fill in the form. Anything quicker is treated as a bot. */
+const MIN_FILL_MS = 3000;
 
 const esc = (v) =>
   String(v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -105,8 +109,19 @@ export const handler = async (event) => {
     return json(400, { ok: false, error: 'Invalid request' });
   }
 
-  // Hidden spam trap: real people never fill this in. Pretend it worked.
-  if (clean(data.website, 200)) return json(200, { ok: true });
+  // Bot trap 1: a hidden field real people never see or fill in.
+  // Bot trap 2: the time the form was open before sending. People need several seconds,
+  // bots send instantly (or skip the script that measures it).
+  // For both, pretend it worked so the bot gets no hint, and send nothing.
+  const elapsed = Number(data.elapsed);
+  if (clean(data.website, 200)) {
+    console.log('blocked: trap field filled');
+    return json(200, { ok: true });
+  }
+  if (!Number.isFinite(elapsed) || elapsed < MIN_FILL_MS) {
+    console.log('blocked: sent too fast', Number.isFinite(elapsed) ? Math.round(elapsed) : 'missing');
+    return json(200, { ok: true });
+  }
 
   const name = oneLine(data.name, 100);
   const phone = oneLine(data.phone, 30);

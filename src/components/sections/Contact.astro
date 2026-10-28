@@ -50,11 +50,15 @@ const details = [
           <p class="eyebrow text-gold">Request an appointment</p>
         </div>
 
-        <!-- Spam trap: hidden from people, bots tend to fill it in -->
+        <!-- Bot trap 1: a field people never see (off-screen, skipped by keyboard and screen readers).
+             Bots fill in every field they find, so a value here means a bot. -->
         <div aria-hidden="true" class="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-          <label for="website">Leave this empty</label>
+          <label for="website">Your website</label>
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
         </div>
+        <!-- Bot trap 2: how long the form was open before sending (filled in by the script below).
+             People need several seconds; bots send instantly. -->
+        <input type="hidden" name="elapsed" value="" />
 
         <div class="field">
           <label for="name">Full name</label>
@@ -163,6 +167,8 @@ const details = [
     });
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const label = button.textContent;
+    // Time trap: start the clock when the form is ready (and again after each successful send).
+    let startedAt = Date.now();
 
     const show = (msg: string, ok: boolean) => {
       status.hidden = false;
@@ -174,6 +180,7 @@ const details = [
       e.preventDefault();
       const endpoint = form.dataset.endpoint;
       const data = Object.fromEntries(new FormData(form));
+      data.elapsed = String(Date.now() - startedAt);
       if (!String(data.name ?? '').trim() || !String(data.phone ?? '').trim()) {
         show('Please enter your name and phone number.', false);
         return;
@@ -196,6 +203,7 @@ const details = [
           title.textContent = first ? `Thank you, ${first}.` : 'Thank you.';
           mailNote.hidden = !(out.confirmed && String(data.email ?? '').trim());
           form.reset();
+          startedAt = Date.now();
           status.hidden = true;
           dialog.showModal();
           document.documentElement.style.overflow = 'hidden';
